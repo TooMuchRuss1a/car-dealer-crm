@@ -4,10 +4,10 @@ import Welcome from '@/Components/Welcome.vue';
 </script>
 
 <template>
-    <AppLayout title="CRM">
+    <AppLayout title="Каталог">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                CRM
+                Каталог
             </h2>
         </template>
 
