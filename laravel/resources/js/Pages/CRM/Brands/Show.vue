@@ -14,7 +14,7 @@ import {useToast} from "primevue/usetoast";
 import Toast from 'primevue/toast';
 
 const props = defineProps({
-    country: Object,
+    brand: Object,
 });
 
 const formDialog = ref(false);
@@ -24,7 +24,7 @@ const toast = useToast();
 
 const form = useForm({
     _method: 'PUT',
-    name: props.country.name,
+    name: props.brand.name,
 });
 
 const confirmDelete = () => {
@@ -50,11 +50,11 @@ const hideDialog = () => {
 };
 
 const update = () => {
-    form.put(route('crm.countries.update', [props.country.id]), {
+    form.put(route('crm.brands.update', [props.brand.id]), {
         onSuccess: () => {
             submitted.value = true;
             formDialog.value = false;
-            toast.add({ severity: 'success', summary: 'Успешно', detail: 'Страна обновлена', life: 3000 });
+            toast.add({ severity: 'success', summary: 'Успешно', detail: 'Марка обновлена', life: 3000 });
         },
         onError: () => {
             toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
@@ -63,10 +63,10 @@ const update = () => {
 };
 
 const destroy = () => {
-    router.visit(route('crm.countries.destroy', [props.country.id]), {
+    router.visit(route('crm.brands.destroy', [props.brand.id]), {
         method: 'delete',
         onSuccess: page => {
-            toast.add({ severity: 'success', summary: 'Успешно', detail: 'Страна удалена', life: 3000 });
+            toast.add({ severity: 'success', summary: 'Успешно', detail: 'Марка удалена', life: 3000 });
         },
         onError: errors => {
             toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
@@ -76,10 +76,10 @@ const destroy = () => {
 </script>
 
 <template>
-    <AppLayout title="Страны">
+    <AppLayout title="Марки">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Страны
+                Марки
             </h2>
         </template>
         <div class="py-12">
@@ -96,7 +96,7 @@ const destroy = () => {
                                     </div>
                                 </template>
                             </Toolbar>
-                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Редактирование страны" :modal="true" class="p-fluid">
+                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Редактирование марки" :modal="true" class="p-fluid">
                                 <div class="field">
                                     <label for="name">Наименование</label>
                                     <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
@@ -115,7 +115,7 @@ const destroy = () => {
                             <div class="card flex flex-col space-y-4">
                                 <div class="mx-1">
                                     <label class="font-bold">Наименование</label>
-                                    <p class="text-gray-600">{{country.name}}</p>
+                                    <p class="text-gray-600">{{brand.name}}</p>
                                 </div>
                             </div>
                         </template>

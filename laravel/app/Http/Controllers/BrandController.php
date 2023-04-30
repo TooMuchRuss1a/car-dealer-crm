@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CountryController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $countries = Country::orderByDesc('id')->get();
+        $brands = Brand::orderByDesc('id')->get();
 
-        return Inertia::render('CRM/Countries/Index', compact('countries'));
+        return Inertia::render('CRM/Brands/Index', compact('brands'));
     }
 
     /**
@@ -24,9 +24,9 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255|alpha|unique:countries'
+            'name' => 'required|max:255|unique:brands'
         ]);
-        Country::create($validated);
+        Brand::create($validated);
 
         return redirect()->back();
     }
@@ -36,9 +36,9 @@ class CountryController extends Controller
      */
     public function show(string $id)
     {
-        $country = Country::findOrFail($id);
+        $brand = Brand::findOrFail($id);
 
-        return Inertia::render('CRM/Countries/Show', compact('country'));
+        return Inertia::render('CRM/Brands/Show', compact('brand'));
     }
 
     /**
@@ -46,11 +46,11 @@ class CountryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $country = Country::findOrFail($id);
+        $brand = Brand::findOrFail($id);
         $validated = $request->validate([
-            'name' => 'required|max:255|alpha|unique:countries,name,'.$country->id
+            'name' => 'required|max:255|unique:brands,name,'.$brand->id
         ]);
-        $country->update($validated);
+        $brand->update($validated);
 
         return redirect()->back();
     }
@@ -60,9 +60,9 @@ class CountryController extends Controller
      */
     public function destroy(string $id)
     {
-        $country = Country::findOrFail($id);
-        $country->delete();
+        $brand = Brand::findOrFail($id);
+        $brand->delete();
 
-        return redirect()->route('crm.countries.index');
+        return redirect()->route('crm.brands.index');
     }
 }
