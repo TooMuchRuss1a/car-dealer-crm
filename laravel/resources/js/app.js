@@ -8,6 +8,9 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import PrimeVue from 'primevue/config';
 import "primevue/resources/primevue.min.css";
 import "primevue/resources/themes/tailwind-light/theme.css";
+import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
+import 'primeicons/primeicons.css';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -138,6 +141,8 @@ createInertiaApp({
                     }
                 }
             })
+            .use(ConfirmationService)
+            .use(ToastService)
             .mount(el);
     },
     progress: {
