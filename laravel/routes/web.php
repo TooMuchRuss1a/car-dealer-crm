@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ModelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,5 +36,15 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}', [BrandController::class, 'show'])->name('crm.brands.show');
         Route::put('/{id}', [BrandController::class, 'update'])->name('crm.brands.update');
         Route::delete('/{id}', [BrandController::class, 'destroy'])->name('crm.brands.destroy');
+    });
+
+    Route::prefix('/models')->group(function () {
+        Route::get('/', [ModelController::class, 'index'])->name('crm.models.index');
+        Route::get('/create', [ModelController::class, 'create'])->name('crm.models.create');
+        Route::post('/', [ModelController::class, 'store'])->name('crm.models.store');
+        Route::get('/{id}', [ModelController::class, 'show'])->name('crm.models.show');
+        Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('crm.models.edit');
+        Route::put('/{id}', [ModelController::class, 'update'])->name('crm.models.update');
+        Route::delete('/{id}', [ModelController::class, 'destroy'])->name('crm.models.destroy');
     });
 });

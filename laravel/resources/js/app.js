@@ -10,6 +10,7 @@ import "primevue/resources/primevue.min.css";
 import "primevue/resources/themes/tailwind-light/theme.css";
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import Tooltip from 'primevue/tooltip';
 import 'primeicons/primeicons.css';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -143,6 +144,7 @@ createInertiaApp({
             })
             .use(ConfirmationService)
             .use(ToastService)
+            .directive('tooltip', Tooltip)
             .mount(el);
     },
     progress: {
