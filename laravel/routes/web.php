@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ModelController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -46,5 +47,13 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('crm.models.edit');
         Route::put('/{id}', [ModelController::class, 'update'])->name('crm.models.update');
         Route::delete('/{id}', [ModelController::class, 'destroy'])->name('crm.models.destroy');
+    });
+
+    Route::prefix('/suppliers')->group(function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('crm.suppliers.index');
+        Route::post('/', [SupplierController::class, 'store'])->name('crm.suppliers.store');
+        Route::get('/{id}', [SupplierController::class, 'show'])->name('crm.suppliers.show');
+        Route::put('/{id}', [SupplierController::class, 'update'])->name('crm.suppliers.update');
+        Route::delete('/{id}', [SupplierController::class, 'destroy'])->name('crm.suppliers.destroy');
     });
 });

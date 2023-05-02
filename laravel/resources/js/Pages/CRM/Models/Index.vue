@@ -17,10 +17,10 @@ const props = defineProps({
 </script>
 
 <template>
-    <AppLayout title="Марки">
+    <AppLayout title="Модели">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Марки
+                Модели
             </h2>
         </template>
         <div class="py-12">

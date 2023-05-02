@@ -50,6 +50,11 @@ const logout = () => {
                                 </NavLink>
                             </div>
                             <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('crm.suppliers.index')" :active="route().current('crm.suppliers.index')">
+                                    Поставщики
+                                </NavLink>
+                            </div>
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('crm.countries.index')" :active="route().current('crm.countries.index')">
                                     Страны
                                 </NavLink>
@@ -129,23 +134,28 @@ const logout = () => {
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
+                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden space-y-1">
+                    <div class="space-y-1">
                         <ResponsiveNavLink :href="route('catalog')" :active="route().current('catalog')">
                             Каталог
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user" class="pt-2 pb-3 space-y-1">
+                    <div v-if="$page.props.auth.user" class="space-y-1">
                         <ResponsiveNavLink :href="route('crm.models.index')" :active="route().current('crm.models.index')">
                             Модели
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user" class="pt-2 pb-3 space-y-1">
+                    <div v-if="$page.props.auth.user" class="space-y-1">
+                        <ResponsiveNavLink :href="route('crm.suppliers.index')" :active="route().current('crm.suppliers.index')">
+                            Поставщики
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user" class="space-y-1">
                         <ResponsiveNavLink :href="route('crm.countries.index')" :active="route().current('crm.countries.index')">
                             Страны
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user" class="pt-2 pb-3 space-y-1">
+                    <div v-if="$page.props.auth.user" class="space-y-1">
                         <ResponsiveNavLink :href="route('crm.brands.index')" :active="route().current('crm.brands.index')">
                             Марки
                         </ResponsiveNavLink>
