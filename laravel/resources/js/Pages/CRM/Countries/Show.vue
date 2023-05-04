@@ -90,7 +90,7 @@ const destroy = () => {
                             <Toolbar class="mb-4">
                                 <template #start>
                                     <div class="card flex flex-wrap gap-3  justify-content-center">
-                                        <Button label="Редактировать" icon="pi pi-pencil" class="mr-2" @click="openForm"/>
+                                        <Button severity="info" label="Редактировать" icon="pi pi-pencil" class="mr-2" @click="openForm"/>
                                         <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
                                         <ConfirmDialog></ConfirmDialog>
                                     </div>

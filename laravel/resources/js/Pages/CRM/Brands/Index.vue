@@ -60,7 +60,7 @@ const hideDialog = () => {
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
                                 </template>
                             </Toolbar>
                             <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать марку" :modal="true" class="p-fluid">
@@ -83,7 +83,7 @@ const hideDialog = () => {
                                     <DataTable :value="brands" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                         <Column field="id" header="ID" sortable style="width: 10%">
                                             <template #body="slotProps">
-                                                <a class="text-indigo-600" :href="route('crm.brands.show', [slotProps.data.id])" v-text="slotProps.data.id" />
+                                                <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                             </template>
                                         </Column>
                                         <Column field="name" header="Наименование" sortable style="width: 90%"></Column>

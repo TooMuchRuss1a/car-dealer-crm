@@ -63,7 +63,7 @@ const destroy = () => {
                                 <template #start>
                                     <div class="card flex flex-wrap gap-3  justify-content-center">
                                         <Link :href="route('crm.models.edit', [model.id])">
-                                            <Button label="Редактировать" class="mr-2"/>
+                                            <Button severity="info" label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
                                         </Link>
                                         <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
                                         <ConfirmDialog></ConfirmDialog>
@@ -95,7 +95,7 @@ const destroy = () => {
                                                     Марка
                                                 </th>
                                                 <td class="px-6 py-4">
-                                                    <a class="text-indigo-600" :href="route('crm.brands.show', [model.brand.id])" v-text="model.brand.name" />
+                                                    <a class="text-blue-600" :href="route('crm.brands.show', [model.brand.id])" v-text="model.brand.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
@@ -103,7 +103,7 @@ const destroy = () => {
                                                     Страна
                                                 </th>
                                                 <td class="px-6 py-4">
-                                                    <a class="text-indigo-600" :href="route('crm.countries.show', [model.country.id])" v-text="model.country.name" />
+                                                    <a class="text-blue-600" :href="route('crm.countries.show', [model.country.id])" v-text="model.country.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">

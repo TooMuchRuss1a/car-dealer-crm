@@ -31,7 +31,7 @@ const props = defineProps({
                             <Toolbar class="mb-4">
                                 <template #start>
                                     <Link :href="route('crm.models.create')">
-                                        <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                        <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2"/>
                                     </Link>
                                     <Toast />
                                 </template>
@@ -42,18 +42,18 @@ const props = defineProps({
                                 <DataTable :value="models" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                     <Column field="id" header="ID" sortable style="width: 10%">
                                         <template #body="slotProps">
-                                            <a class="text-indigo-600" :href="route('crm.models.show', [slotProps.data.id])" v-text="slotProps.data.id" />
+                                            <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
                                     <Column field="name" header="Наименование" sortable style="width: 20%"></Column>
                                     <Column field="brand" header="Марка" sortable style="width: 10%">
                                         <template #body="slotProps">
-                                            <a class="text-indigo-600" :href="route('crm.brands.show', [slotProps.data.brand.id])" v-text="slotProps.data.brand.name" />
+                                            <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.brand.id])" v-text="slotProps.data.brand.name" />
                                         </template>
                                     </Column>
                                     <Column field="country" header="Страна" sortable style="width: 10%">
                                         <template #body="slotProps">
-                                            <a class="text-indigo-600" :href="route('crm.countries.show', [slotProps.data.country.id])" v-text="slotProps.data.country.name" />
+                                            <a class="text-blue-600" :href="route('crm.countries.show', [slotProps.data.country.id])" v-text="slotProps.data.country.name" />
                                         </template>
                                     </Column>
                                     <Column field="release_date" header="Год" sortable style="width: 10%">
