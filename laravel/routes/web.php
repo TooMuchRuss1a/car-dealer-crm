@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\EngineController;
+use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,16 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [EngineController::class, 'edit'])->name('crm.engines.edit');
         Route::put('/{id}', [EngineController::class, 'update'])->name('crm.engines.update');
         Route::delete('/{id}', [EngineController::class, 'destroy'])->name('crm.engines.destroy');
+    });
+
+    Route::prefix('/generations')->group(function () {
+        Route::get('/', [GenerationController::class, 'index'])->name('crm.generations.index');
+        Route::get('/create', [GenerationController::class, 'create'])->name('crm.generations.create');
+        Route::post('/', [GenerationController::class, 'store'])->name('crm.generations.store');
+        Route::get('/{id}', [GenerationController::class, 'show'])->name('crm.generations.show');
+        Route::get('/{id}/edit', [GenerationController::class, 'edit'])->name('crm.generations.edit');
+        Route::put('/{id}', [GenerationController::class, 'update'])->name('crm.generations.update');
+        Route::delete('/{id}', [GenerationController::class, 'destroy'])->name('crm.generations.destroy');
     });
 
     Route::prefix('/suppliers')->group(function () {
