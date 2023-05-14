@@ -5,15 +5,51 @@ import Column from 'primevue/column';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
-import {Link} from "@inertiajs/vue3";
+import {useForm} from "@inertiajs/vue3";
 import Toast from 'primevue/toast';
-import moment from "moment";
+import {ref} from "vue";
+import {useToast} from "primevue/usetoast";
+import Dropdown from 'primevue/dropdown';
+import InputText from 'primevue/inputtext';
+import Dialog from 'primevue/dialog';
+import ProgressBar from 'primevue/progressbar';
 
 const props = defineProps({
     models: Object,
-    bodies: Object,
-    fuels: Object,
+    brands: Object,
 });
+
+const formDialog = ref(false);
+const toast = useToast();
+
+const form = useForm({
+    name: null,
+    brand_id: null
+});
+const openForm = () => {
+    formDialog.value = true;
+};
+
+const store = () => {
+    form.transform((data) => ({
+        ...data,
+        brand_id: data.brand_id ? data.brand_id.id : null,
+    }))
+        .post(route('crm.models.store'), {
+            onSuccess: () => {
+                toast.add({ severity: 'success', summary: 'Успешно', detail: 'Модель создана', life: 3000 });
+                form.reset();
+                formDialog.value = false;
+            },
+            onError: () => {
+                toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
+            },
+        });
+};
+
+const hideDialog = () => {
+    formDialog.value = false;
+};
 </script>
 
 <template>
@@ -30,12 +66,40 @@ const props = defineProps({
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Link :href="route('crm.models.create')">
-                                        <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2"/>
-                                    </Link>
-                                    <Toast />
+                                    <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
                                 </template>
                             </Toolbar>
+                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать марку" :modal="true" class="p-fluid">
+                                <div class="space-y-2">
+                                    <div class="field">
+                                        <label for="name">Наименование</label>
+                                        <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.name}}</small>
+                                    </div>
+                                    <div class="field">
+                                        <label>Марка</label>
+                                        <Dropdown v-bind:disabled="form.processing" required="true" :class="{'p-invalid': form.hasErrors && form.errors.brand_id}" v-model="form.brand_id" :options="brands" filter optionLabel="name">
+                                            <template #value="slotProps">
+                                                <div v-if="slotProps.value" class="flex align-items-center">
+                                                    <div>{{ slotProps.value.name }}</div>
+                                                </div>
+                                            </template>
+                                            <template #option="slotProps">
+                                                <div class="flex align-items-center">
+                                                    <div>{{ slotProps.option.name }}</div>
+                                                </div>
+                                            </template>
+                                        </Dropdown>
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.brand_id}}</small>
+                                    </div>
+                                </div>
+                                <template #footer>
+                                    <Button  label="Отмена" icon="pi pi-times" text @click="hideDialog"/>
+                                    <Button v-bind:disabled="form.processing" label="Сохранить" icon="pi pi-check" text @click="store" />
+                                    <ProgressBar class="mt-2" v-if="form.processing" mode="indeterminate" style="height: 3px"></ProgressBar>
+                                </template>
+                            </Dialog>
+                            <Toast />
                         </template>
                         <template #content>
                             <div class="card">
@@ -49,26 +113,6 @@ const props = defineProps({
                                     <Column field="brand" header="Марка" sortable style="width: 10%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.brand.id])" v-text="slotProps.data.brand.name" />
-                                        </template>
-                                    </Column>
-                                    <Column field="country" header="Страна" sortable style="width: 10%">
-                                        <template #body="slotProps">
-                                            <a class="text-blue-600" :href="route('crm.countries.show', [slotProps.data.country.id])" v-text="slotProps.data.country.name" />
-                                        </template>
-                                    </Column>
-                                    <Column field="release_date" header="Год" sortable style="width: 10%">
-                                        <template #body="slotProps">
-                                            {{moment(slotProps.data.release_date).format('YYYY')}}
-                                        </template>
-                                    </Column>
-                                    <Column field="body" header="Кузов" sortable style="width: 10%">
-                                        <template #body="slotProps">
-                                            {{bodies[slotProps.data.body]}}
-                                        </template>
-                                    </Column>
-                                    <Column field="fuel" header="Топливо" sortable style="width: 10%">
-                                        <template #body="slotProps">
-                                            {{fuels[slotProps.data.fuel]}}
                                         </template>
                                     </Column>
                                 </DataTable>

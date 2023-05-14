@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\EngineController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\SupplierController;
@@ -43,10 +44,8 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
 
     Route::prefix('/models')->group(function () {
         Route::get('/', [ModelController::class, 'index'])->name('crm.models.index');
-        Route::get('/create', [ModelController::class, 'create'])->name('crm.models.create');
         Route::post('/', [ModelController::class, 'store'])->name('crm.models.store');
         Route::get('/{id}', [ModelController::class, 'show'])->name('crm.models.show');
-        Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('crm.models.edit');
         Route::put('/{id}', [ModelController::class, 'update'])->name('crm.models.update');
         Route::delete('/{id}', [ModelController::class, 'destroy'])->name('crm.models.destroy');
     });
@@ -69,6 +68,16 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [GenerationController::class, 'edit'])->name('crm.generations.edit');
         Route::put('/{id}', [GenerationController::class, 'update'])->name('crm.generations.update');
         Route::delete('/{id}', [GenerationController::class, 'destroy'])->name('crm.generations.destroy');
+    });
+
+    Route::prefix('/equipments')->group(function () {
+        Route::get('/', [EquipmentController::class, 'index'])->name('crm.equipments.index');
+        Route::get('/create', [EquipmentController::class, 'create'])->name('crm.equipments.create');
+        Route::post('/', [EquipmentController::class, 'store'])->name('crm.equipments.store');
+        Route::get('/{id}', [EquipmentController::class, 'show'])->name('crm.equipments.show');
+        Route::get('/{id}/edit', [EquipmentController::class, 'edit'])->name('crm.equipments.edit');
+        Route::put('/{id}', [EquipmentController::class, 'update'])->name('crm.equipments.update');
+        Route::delete('/{id}', [EquipmentController::class, 'destroy'])->name('crm.equipments.destroy');
     });
 
     Route::prefix('/suppliers')->group(function () {

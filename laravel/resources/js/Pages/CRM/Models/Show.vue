@@ -4,23 +4,30 @@ import Card from 'primevue/card';
 import Button from 'primevue/button';
 import {ref} from 'vue';
 import Toolbar from 'primevue/toolbar';
-import {Link, router} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import {useConfirm} from "primevue/useconfirm";
 import {useToast} from "primevue/usetoast";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from 'primevue/toast';
-import moment from "moment";
+import Dropdown from 'primevue/dropdown';
+import InputText from 'primevue/inputtext';
+import Dialog from 'primevue/dialog';
+import ProgressBar from 'primevue/progressbar';
 
 const props = defineProps({
     model: Object,
-    bodies: Array,
-    fuels: Array,
-    types: Array,
+    brands: Object,
 });
 
-const submitted = ref(false);
+const formDialog = ref(false);
 const confirm = useConfirm();
 const toast = useToast();
+
+const form = useForm({
+    _method: 'PUT',
+    name: props.model.name,
+    brand_id: props.model.brand,
+});
 
 const confirmDelete = () => {
     confirm.require({
@@ -32,6 +39,30 @@ const confirmDelete = () => {
             destroy()
         },
     });
+};
+
+const openForm = () => {
+    formDialog.value = true;
+};
+
+const hideDialog = () => {
+    formDialog.value = false;
+};
+
+const update = () => {
+    form.transform((data) => ({
+        ...data,
+        brand_id: data.brand_id ? data.brand_id.id : null,
+    }))
+        .put(route('crm.models.update', [props.model.id]), {
+            onSuccess: () => {
+                formDialog.value = false;
+                toast.add({ severity: 'success', summary: 'Успешно', detail: 'Модель обновлена', life: 3000 });
+            },
+            onError: () => {
+                toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
+            },
+        });
 };
 
 const destroy = () => {
@@ -62,15 +93,43 @@ const destroy = () => {
                             <Toolbar class="mb-4">
                                 <template #start>
                                     <div class="card flex flex-wrap gap-3  justify-content-center">
-                                        <Link :href="route('crm.models.edit', [model.id])">
-                                            <Button severity="info" label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
-                                        </Link>
+                                        <Button severity="info" label="Редактировать" icon="pi pi-pencil" class="mr-2" @click="openForm"/>
                                         <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
                                         <ConfirmDialog></ConfirmDialog>
-                                        <Toast />
                                     </div>
                                 </template>
                             </Toolbar>
+                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Редактирование марки" :modal="true" class="p-fluid">
+                                <div class="space-y-2">
+                                    <div class="field">
+                                        <label for="name">Наименование</label>
+                                        <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.name}}</small>
+                                    </div>
+                                    <div class="field">
+                                        <label>Марка</label>
+                                        <Dropdown v-bind:disabled="form.processing" required="true" :class="{'p-invalid': form.hasErrors && form.errors.brand_id}" v-model="form.brand_id" :options="brands" filter optionLabel="name">
+                                            <template #value="slotProps">
+                                                <div v-if="slotProps.value" class="flex align-items-center">
+                                                    <div>{{ slotProps.value.name }}</div>
+                                                </div>
+                                            </template>
+                                            <template #option="slotProps">
+                                                <div class="flex align-items-center">
+                                                    <div>{{ slotProps.option.name }}</div>
+                                                </div>
+                                            </template>
+                                        </Dropdown>
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.brand_id}}</small>
+                                    </div>
+                                </div>
+                                <template #footer>
+                                    <Button  label="Отмена" icon="pi pi-times" text @click="hideDialog"/>
+                                    <Button v-bind:disabled="form.processing" label="Сохранить" icon="pi pi-check" text @click="update" />
+                                    <ProgressBar class="mt-2" v-if="form.processing" mode="indeterminate" style="height: 3px"></ProgressBar>
+                                </template>
+                            </Dialog>
+                            <Toast />
                         </template>
                         <template #content>
                             <div class="card flex flex-col">
@@ -96,184 +155,6 @@ const destroy = () => {
                                                 </th>
                                                 <td class="px-6 py-4">
                                                     <a class="text-blue-600" :href="route('crm.brands.show', [model.brand.id])" v-text="model.brand.name" />
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Страна
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    <a class="text-blue-600" :href="route('crm.countries.show', [model.country.id])" v-text="model.country.name" />
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Год выпуска
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{moment(model.release_date).format('YYYY')}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Тип
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{types[model.type]}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Кузов
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{bodies[model.body]}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Количество дверей
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.doors_count}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Количество сидений
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.seats_count}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Длина
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.length}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Ширина
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.width}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Высота
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.height}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" colspan="2" class="text-lg px-6 py-4 pt-8 font-bold text-gray-900 whitespace-nowrap">
-                                                    Двигатель
-                                                </th>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Модель двигателя
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.engine_model}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Номер двигателя
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.engine_number}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Количество цилиндров
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.cylinders_count}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Рабочий объем двигателя
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.engine_capacity}} см3
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Мощность двигателя
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.engine_power}} л.с.
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Максимальный крутящий момент
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.max_torque}} Нм
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Максимальная скорость
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.max_speed}} км/ч
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Время разгона до 100км/ч
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.acceleration_time}} с
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" colspan="2" class="text-lg px-6 py-4 pt-8 font-bold text-gray-900 whitespace-nowrap">
-                                                    Топливо и расход
-                                                </th>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Используемый вид топлива
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{fuels[model.fuel]}}
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Расход топлива при скорости 90 км/ч
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.fuel_consumption_90}} л/100км
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Расход топлива при скорости 120 км/ч
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.fuel_consumption_120}} л/100км
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                                    Расход топлива при городском цикле
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{model.fuel_consumption_city}} л/100км
                                                 </td>
                                             </tr>
                                         </tbody>

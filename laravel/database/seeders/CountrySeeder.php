@@ -12,8 +12,6 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        Country::truncate();
-
         $countries = [
             "Австралия",
             "Австрия",

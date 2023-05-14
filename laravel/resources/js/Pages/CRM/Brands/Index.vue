@@ -12,23 +12,30 @@ import Toast from 'primevue/toast';
 import Toolbar from 'primevue/toolbar';
 import {useForm} from "@inertiajs/vue3";
 import {useToast} from "primevue/usetoast";
+import Dropdown from 'primevue/dropdown';
 
 const props = defineProps({
     brands: Object,
+    countries: Object,
 });
 
 const formDialog = ref(false);
 const toast = useToast();
 
 const form = useForm({
-    name: '',
+    name: null,
+    country_id: null
 });
 const openForm = () => {
     formDialog.value = true;
 };
 
 const store = () => {
-    form.post(route('crm.brands.store'), {
+    form.transform((data) => ({
+        ...data,
+        country_id: data.country_id ? data.country_id.id : null,
+    }))
+        .post(route('crm.brands.store'), {
         onSuccess: () => {
             toast.add({ severity: 'success', summary: 'Успешно', detail: 'Марка создана', life: 3000 });
             form.reset();
@@ -64,10 +71,28 @@ const hideDialog = () => {
                                 </template>
                             </Toolbar>
                             <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать марку" :modal="true" class="p-fluid">
-                                <div class="field">
-                                    <label for="name">Наименование</label>
-                                    <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
-                                    <small v-if="form.hasErrors" class="p-error">{{form.errors.name}}</small>
+                                <div class="space-y-2">
+                                    <div class="field">
+                                        <label for="name">Наименование</label>
+                                        <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.name}}</small>
+                                    </div>
+                                    <div class="field">
+                                        <label>Страна</label>
+                                        <Dropdown v-bind:disabled="form.processing" required="true" :class="{'p-invalid': form.hasErrors && form.errors.country_id}" v-model="form.country_id" :options="countries" filter optionLabel="name">
+                                            <template #value="slotProps">
+                                                <div v-if="slotProps.value" class="flex align-items-center">
+                                                    <div>{{ slotProps.value.name }}</div>
+                                                </div>
+                                            </template>
+                                            <template #option="slotProps">
+                                                <div class="flex align-items-center">
+                                                    <div>{{ slotProps.option.name }}</div>
+                                                </div>
+                                            </template>
+                                        </Dropdown>
+                                        <small v-if="form.hasErrors" class="p-error">{{form.errors.country_id}}</small>
+                                    </div>
                                 </div>
                                 <template #footer>
                                     <Button  label="Отмена" icon="pi pi-times" text @click="hideDialog"/>
@@ -79,16 +104,21 @@ const hideDialog = () => {
                         </template>
 
                         <template #content>
-                                <div class="card">
-                                    <DataTable :value="brands" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
-                                        <Column field="id" header="ID" sortable style="width: 10%">
-                                            <template #body="slotProps">
-                                                <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.id])" v-text="slotProps.data.id" />
-                                            </template>
-                                        </Column>
-                                        <Column field="name" header="Наименование" sortable style="width: 90%"></Column>
-                                    </DataTable>
-                                </div>
+                            <div class="card">
+                                <DataTable :value="brands" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <Column field="id" header="ID" sortable style="width: 10%">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.id])" v-text="slotProps.data.id" />
+                                        </template>
+                                    </Column>
+                                    <Column field="name" header="Наименование" sortable style="width: 50%"></Column>
+                                    <Column field="country" header="Страна" sortable style="width: 40%">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.countries.show', [slotProps.data.country.id])" v-text="slotProps.data.country.name" />
+                                        </template>
+                                    </Column>
+                                </DataTable>
+                            </div>
                         </template>
                     </Card>
                 </div>

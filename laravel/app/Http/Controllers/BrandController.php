@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,9 +14,10 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::orderByDesc('id')->get();
+        $brands = Brand::with('country')->orderByDesc('id')->get();
+        $countries = Country::orderBy('name')->get();
 
-        return Inertia::render('CRM/Brands/Index', compact('brands'));
+        return Inertia::render('CRM/Brands/Index', compact('brands', 'countries'));
     }
 
     /**
@@ -24,7 +26,8 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255|unique:brands'
+            'name' => 'required|max:255|unique:brands',
+            'country_id' => 'required|integer|exists:countries,id',
         ]);
         Brand::create($validated);
 
@@ -36,9 +39,10 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        $brand = Brand::findOrFail($id);
+        $brand = Brand::with('country')->findOrFail($id);
+        $countries = Country::orderBy('name')->get();
 
-        return Inertia::render('CRM/Brands/Show', compact('brand'));
+        return Inertia::render('CRM/Brands/Show', compact('brand', 'countries'));
     }
 
     /**
@@ -48,7 +52,8 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $validated = $request->validate([
-            'name' => 'required|max:255|unique:brands,name,'.$brand->id
+            'name' => 'required|max:255|unique:brands,name,'.$brand->id,
+            'country_id' => 'required|integer|exists:countries,id',
         ]);
         $brand->update($validated);
 

@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Body;
-use App\Enums\Fuel;
-use App\Enums\Type;
-use App\Http\Requests\ModelRequest;
 use App\Models\Brand;
-use App\Models\Country;
 use App\Models\Model;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ModelController extends Controller
@@ -18,36 +14,24 @@ class ModelController extends Controller
      */
     public function index()
     {
-        $models = Model::with('brand', 'country')->orderByDesc('id')->get();
-        $types = Type::array();
-        $bodies = Body::array();
-        $fuels = Fuel::array();
-
-        return Inertia::render('CRM/Models/Index', compact('models', 'types', 'bodies', 'fuels'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $countries = Country::orderBy('name')->get();
+        $models = Model::with('brand')->orderByDesc('id')->get();
         $brands = Brand::orderBy('name')->get();
-        $types = Type::array();
-        $bodies = Body::array();
-        $fuels = Fuel::array();
 
-        return Inertia::render('CRM/Models/Create', compact('countries', 'brands', 'types', 'bodies', 'fuels'));
+        return Inertia::render('CRM/Models/Index', compact('models', 'brands'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ModelRequest $request)
+    public function store(Request $request)
     {
-        $model = Model::create($request->validated());
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'brand_id' => 'required|integer|exists:brands,id',
+        ]);
+        Model::create($validated);
 
-        return redirect()->route('crm.models.show', ['id' => $model->id]);
+        return redirect()->back();
     }
 
     /**
@@ -55,40 +39,25 @@ class ModelController extends Controller
      */
     public function show(string $id)
     {
-        $model = Model::with('brand', 'country')->findOrFail($id);
-        $countries = Country::orderBy('name')->get();
+        $model = Model::with('brand')->findOrFail($id);
         $brands = Brand::orderBy('name')->get();
-        $types = Type::array();
-        $bodies = Body::array();
-        $fuels = Fuel::array();
 
-        return Inertia::render('CRM/Models/Show', compact('model', 'countries', 'brands', 'types', 'bodies', 'fuels'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Country $country, string $id)
-    {
-        $model = Model::with('brand', 'country')->findOrFail($id);
-        $countries = Country::orderBy('name')->get();
-        $brands = Brand::orderBy('name')->get();
-        $types = Type::array();
-        $bodies = Body::array();
-        $fuels = Fuel::array();
-
-        return Inertia::render('CRM/Models/Edit', compact('model', 'countries', 'brands', 'types', 'bodies', 'fuels'));
+        return Inertia::render('CRM/Models/Show', compact('model', 'brands'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ModelRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         $model = Model::findOrFail($id);
-        $model->update($request->validated());
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'brand_id' => 'required|integer|exists:brands,id',
+        ]);
+        $model->update($validated);
 
-        return redirect()->route('crm.models.show', ['id' => $model->id]);
+        return redirect()->back();
     }
 
     /**

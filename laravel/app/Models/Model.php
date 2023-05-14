@@ -19,38 +19,8 @@ class Model extends EModel
      */
     protected $fillable = [
         'name',
-        'type',
-        'engine_model',
-        'engine_number',
-        'engine_capacity',
-        'cylinders_count',
-        'engine_power',
-        'max_torque',
-        'max_speed',
-        'acceleration_time',
-        'doors_count',
-        'seats_count',
-        'length',
-        'width',
-        'height',
-        'fuel',
-        'fuel_consumption_90',
-        'fuel_consumption_120',
-        'fuel_consumption_city',
         'brand_id',
-        'country_id',
-        'body',
-        'release_date'
     ];
-
-    protected $dates = [
-        'release_date'
-    ];
-
-    public function country()
-    {
-        return $this->belongsTo('App\Models\Country');
-    }
 
     public function brand()
     {
