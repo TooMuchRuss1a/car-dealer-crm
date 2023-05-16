@@ -20,4 +20,9 @@ class Supplier extends Model
         'name',
         'email',
     ];
+
+    public function supplies()
+    {
+        return $this->hasMany('App\Models\Supply');
+    }
 }

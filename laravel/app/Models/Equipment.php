@@ -45,4 +45,9 @@ class Equipment extends EModel
     {
         return $this->belongsTo('App\Models\Generation');
     }
+
+    public function supplies()
+    {
+        return $this->hasMany('App\Models\Supply');
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SupplyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -86,5 +87,15 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}', [SupplierController::class, 'show'])->name('crm.suppliers.show');
         Route::put('/{id}', [SupplierController::class, 'update'])->name('crm.suppliers.update');
         Route::delete('/{id}', [SupplierController::class, 'destroy'])->name('crm.suppliers.destroy');
+    });
+
+    Route::prefix('/supplies')->group(function () {
+        Route::get('/', [SupplyController::class, 'index'])->name('crm.supplies.index');
+        Route::get('/create', [SupplyController::class, 'create'])->name('crm.supplies.create');
+        Route::post('/', [SupplyController::class, 'store'])->name('crm.supplies.store');
+        Route::get('/{id}', [SupplyController::class, 'show'])->name('crm.supplies.show');
+        Route::get('/{id}/edit', [SupplyController::class, 'edit'])->name('crm.supplies.edit');
+        Route::put('/{id}', [SupplyController::class, 'update'])->name('crm.supplies.update');
+        Route::delete('/{id}', [SupplyController::class, 'destroy'])->name('crm.supplies.destroy');
     });
 });
