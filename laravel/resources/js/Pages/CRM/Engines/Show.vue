@@ -57,7 +57,7 @@ const destroy = () => {
                                 <template #start>
                                     <div class="card flex flex-wrap gap-3  justify-content-center">
                                         <Link :href="route('crm.engines.edit', [engine.id])">
-                                            <Button severity="info" label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
                                         </Link>
                                         <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
                                         <ConfirmDialog></ConfirmDialog>

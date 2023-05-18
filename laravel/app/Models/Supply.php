@@ -44,4 +44,9 @@ class Supply extends EModel
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function car()
+    {
+        return $this->hasOne('App\Models\Car');
+    }
 }

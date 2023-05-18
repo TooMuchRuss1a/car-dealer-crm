@@ -60,7 +60,7 @@ const hideDialog = () => {
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
                                 </template>
                             </Toolbar>
                             <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать страну" :modal="true" class="p-fluid">

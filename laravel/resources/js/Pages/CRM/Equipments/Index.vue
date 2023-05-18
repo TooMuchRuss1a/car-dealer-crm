@@ -25,7 +25,7 @@ const props = defineProps({
                             <Toolbar class="mb-4">
                                 <template #start>
                                     <Link :href="route('crm.equipments.create')">
-                                        <Button severity="info" label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                        <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
                                     </Link>
                                     <Toast />
                                 </template>

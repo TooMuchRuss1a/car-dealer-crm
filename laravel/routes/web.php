@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CarPhotoController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\EngineController;
 use App\Http\Controllers\EquipmentController;
@@ -79,6 +81,18 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [EquipmentController::class, 'edit'])->name('crm.equipments.edit');
         Route::put('/{id}', [EquipmentController::class, 'update'])->name('crm.equipments.update');
         Route::delete('/{id}', [EquipmentController::class, 'destroy'])->name('crm.equipments.destroy');
+    });
+
+    Route::prefix('/cars')->group(function () {
+        Route::get('/', [CarController::class, 'index'])->name('crm.cars.index');
+        Route::get('/{id}', [CarController::class, 'show'])->name('crm.cars.show');
+        Route::get('/{id}/edit', [CarController::class, 'edit'])->name('crm.cars.edit');
+        Route::put('/{id}', [CarController::class, 'update'])->name('crm.cars.update');
+    });
+
+    Route::prefix('/photos')->group(function () {
+        Route::post('/', [CarPhotoController::class, 'store'])->name('crm.photos.store');
+        Route::delete('/{id}', [CarPhotoController::class, 'delete'])->name('crm.photos.destroy');
     });
 
     Route::prefix('/suppliers')->group(function () {

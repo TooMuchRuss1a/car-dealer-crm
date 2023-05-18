@@ -122,7 +122,7 @@ const store = () => {
                                     </div>
                                 </div>
                                 <div class="card flex justify-end mx-4">
-                                    <Button severity="info" v-bind:disabled="form.processing" @click="store" label="Создать" />
+                                    <Button v-bind:disabled="form.processing" @click="store" label="Создать" />
                                 </div>
                             </div>
                             <ProgressBar v-if="form.processing" class="mt-8" mode="indeterminate" style="height: 3px"></ProgressBar>

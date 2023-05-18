@@ -47,6 +47,7 @@ class SupplyController extends Controller
                 'user_id' => $request->user()->id,
                 'created_at' => now()
             ]);
+        $supply->car()->create(['supply_id' => $supply->id]);
 
         return redirect()->route('crm.supplies.show', ['id' => $supply->id]);
     }
