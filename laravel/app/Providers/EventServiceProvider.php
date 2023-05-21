@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\Supply;
+use App\Observers\OrderObserver;
 use App\Observers\SupplyObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Supply::observe(SupplyObserver::class);
+        Order::observe(OrderObserver::class);
     }
 
     /**

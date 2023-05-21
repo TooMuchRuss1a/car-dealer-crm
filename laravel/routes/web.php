@@ -9,6 +9,7 @@ use App\Http\Controllers\EngineController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ModelController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplyController;
 use Illuminate\Support\Facades\Route;
@@ -122,5 +123,15 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('crm.customers.edit');
         Route::put('/{id}', [CustomerController::class, 'update'])->name('crm.customers.update');
         Route::delete('/{id}', [CustomerController::class, 'destroy'])->name('crm.customers.destroy');
+    });
+
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('crm.orders.index');
+        Route::get('/create', [OrderController::class, 'create'])->name('crm.orders.create');
+        Route::post('/', [OrderController::class, 'store'])->name('crm.orders.store');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('crm.orders.show');
+        Route::get('/{id}/edit', [OrderController::class, 'edit'])->name('crm.orders.edit');
+        Route::put('/{id}', [OrderController::class, 'update'])->name('crm.orders.update');
+        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('crm.orders.destroy');
     });
 });

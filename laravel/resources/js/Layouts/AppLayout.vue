@@ -45,6 +45,11 @@ const logout = () => {
                                 </NavLink>
                             </div>
                             <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                                <NavLink :href="route('crm.orders.index')" :active="route().current('crm.orders.index')">
+                                    Заказы
+                                </NavLink>
+                            </div>
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                                 <NavLink :href="route('crm.customers.index')" :active="route().current('crm.customers.index')">
                                     Клиенты
                                 </NavLink>
@@ -168,6 +173,11 @@ const logout = () => {
                     <div class="space-y-1">
                         <ResponsiveNavLink :href="route('catalog')" :active="route().current('catalog')">
                             Каталог
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user" class="space-y-1">
+                        <ResponsiveNavLink :href="route('crm.orders.index')" :active="route().current('crm.orders.index')">
+                            Заказы
                         </ResponsiveNavLink>
                     </div>
                     <div v-if="$page.props.auth.user" class="space-y-1">
