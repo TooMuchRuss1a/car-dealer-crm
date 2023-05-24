@@ -33,14 +33,14 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('catalog')">
+                                <Link :href="route('catalog.index')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                                <NavLink :href="route('catalog')" :active="route().current('catalog')">
+                                <NavLink :href="route('catalog.index')" :active="route().current('catalog.index')">
                                     Каталог
                                 </NavLink>
                             </div>
@@ -143,7 +143,7 @@ const logout = () => {
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200" @click="showingNavigationDropdown = ! showingNavigationDropdown">
                                 <svg
-                                    class="h-6 w-6"
+                                    class="h-6"
                                     stroke="currentColor"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -171,7 +171,7 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden space-y-1">
                     <div class="space-y-1">
-                        <ResponsiveNavLink :href="route('catalog')" :active="route().current('catalog')">
+                        <ResponsiveNavLink :href="route('catalog.index')" :active="route().current('catalog.index')">
                             Каталог
                         </ResponsiveNavLink>
                     </div>

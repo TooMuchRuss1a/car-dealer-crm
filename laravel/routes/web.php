@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarPhotoController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EngineController;
@@ -26,7 +27,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {return Inertia::render('Catalog');})->name('catalog');
+Route::get('/', function () {
+    return redirect('/catalog');
+});
+
+Route::prefix('/catalog')->group(function () {
+    Route::get('/', [CatalogController::class, 'index'])->name('catalog.index');
+    Route::get('/{id}', [CatalogController::class, 'show'])->name('catalog.show');
+});
 
 Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/', function () {return Inertia::render('CRM/Dashboard');})->name('crm');
