@@ -39,62 +39,67 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('catalog.index')" :active="route().current('catalog.index')">
                                     Каталог
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                                <NavLink :href="route('crm.requests.index')" :active="route().current('crm.requests.index')">
+                                    Заявки
+                                </NavLink>
+                            </div>
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.orders.index')" :active="route().current('crm.orders.index')">
                                     Заказы
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.customers.index')" :active="route().current('crm.customers.index')">
                                     Клиенты
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.brands.index')" :active="route().current('crm.brands.index')">
                                     Марки
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.models.index')" :active="route().current('crm.models.index')">
                                     Модели
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.generations.index')" :active="route().current('crm.generations.index')">
                                     Поколения
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.equipments.index')" :active="route().current('crm.equipments.index')">
                                     Комплектации
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.cars.index')" :active="route().current('crm.cars.index')">
                                     Авто
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.engines.index')" :active="route().current('crm.engines.index')">
                                     Двигатели
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.supplies.index')" :active="route().current('crm.supplies.index')">
                                     Поставки
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.suppliers.index')" :active="route().current('crm.suppliers.index')">
                                     Поставщики
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
                                 <NavLink :href="route('crm.countries.index')" :active="route().current('crm.countries.index')">
                                     Страны
                                 </NavLink>
@@ -173,6 +178,11 @@ const logout = () => {
                     <div class="space-y-1">
                         <ResponsiveNavLink :href="route('catalog.index')" :active="route().current('catalog.index')">
                             Каталог
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user" class="space-y-1">
+                        <ResponsiveNavLink :href="route('crm.requests.index')" :active="route().current('crm.requests.index')">
+                            Заявки
                         </ResponsiveNavLink>
                     </div>
                     <div v-if="$page.props.auth.user" class="space-y-1">

@@ -11,6 +11,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplyController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,8 @@ Route::prefix('/catalog')->group(function () {
     Route::get('/', [CatalogController::class, 'index'])->name('catalog.index');
     Route::get('/{id}', [CatalogController::class, 'show'])->name('catalog.show');
 });
+
+Route::post('/requests', [RequestController::class, 'store'])->name('requests.store');
 
 Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/', function () {return Inertia::render('CRM/Dashboard');})->name('crm');
@@ -141,5 +144,14 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [OrderController::class, 'edit'])->name('crm.orders.edit');
         Route::put('/{id}', [OrderController::class, 'update'])->name('crm.orders.update');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('crm.orders.destroy');
+    });
+
+    Route::prefix('/requests')->group(function () {
+        Route::get('/', [RequestController::class, 'index'])->name('crm.requests.index');
+        Route::get('/{id}', [RequestController::class, 'show'])->name('crm.requests.show');
+        Route::get('/{id}/edit', [RequestController::class, 'edit'])->name('crm.requests.edit');
+        Route::put('/{id}', [RequestController::class, 'update'])->name('crm.requests.update');
+        Route::put('/{id}/status', [RequestController::class, 'nextStatus'])->name('crm.requests.status.next');
+        Route::delete('/{id}', [RequestController::class, 'destroy'])->name('crm.requests.destroy');
     });
 });

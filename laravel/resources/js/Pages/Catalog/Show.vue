@@ -48,17 +48,21 @@ const hideDialog = () => {
 };
 
 const store = () => {
-    // TODO request store
-    // form.post(route('crm.request.store'), {
-    //     onSuccess: () => {
+    form.transform((data) => ({
+        ...data,
+        phone: data.phone.replace(/[^0-9,]/g,""),
+        car_id: props.car.id,
+    }))
+        .post(route('requests.store'), {
+        onSuccess: () => {
             toast.add({ severity: 'success', summary: 'Успешно', detail: 'Ожидайте звонка', life: 3000 });
             form.reset();
-    //     },
-    //     onError: () => {
-    //         toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
-    //     },
-    // });
-    hideDialog()
+            hideDialog();
+        },
+        onError: () => {
+            toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Произошла ошибка', life: 3000 });
+        },
+    });
 };
 </script>
 
