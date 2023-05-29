@@ -143,6 +143,7 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}', [OrderController::class, 'show'])->name('crm.orders.show');
         Route::get('/{id}/edit', [OrderController::class, 'edit'])->name('crm.orders.edit');
         Route::put('/{id}', [OrderController::class, 'update'])->name('crm.orders.update');
+        Route::get('/{id}/download/contract', [OrderController::class, 'downloadContract'])->name('crm.orders.download.contract');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('crm.orders.destroy');
     });
 

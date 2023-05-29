@@ -6,7 +6,9 @@ use App\Http\Requests\OrderRequest;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Order;
+use Carbon\Carbon;
 use Inertia\Inertia;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class OrderController extends Controller
 {
@@ -75,6 +77,55 @@ class OrderController extends Controller
         $order->update($request->validated());
 
         return redirect()->route('crm.orders.show', ['id' => $order->id]);
+    }
+
+    public function downloadContract(string $id)
+    {
+        $order = Order::with('user', 'car.supply.equipment.generation.model.brand', 'car.supply.equipment.generation.engine', 'customer')->findOrFail($id);
+
+        $templateProcessor = new TemplateProcessor(storage_path('app/templates/').'dkp.docx');
+        $templateProcessor->setValues([
+            'id' => $order->id,
+            'day' => today()->day,
+            'month' => today()->getTranslatedMonthName('Do MMMM'),
+            'year' => today()->year,
+            'user_name' => $order->user->name,
+            'customer_name' => $order->customer->name,
+            'state_number' => $order->car->state_number,
+            'vin' => $order->car->vin,
+            'brand' => $order->car->supply->equipment->generation->model->brand->name,
+            'model' => $order->car->supply->equipment->generation->model->name,
+            'type' => $order->car->supply->equipment->type,
+            'release_date' => Carbon::parse($order->car->release_date)->format('YYYY'),
+            'chassis_number' => $order->car->chassis_number,
+            'body_number' => $order->car->body_number,
+            'color' => $order->car->color,
+            'engine_name' => $order->car->supply->equipment->generation->engine->name,
+            'max_power' => $order->car->supply->equipment->generation->engine->max_power,
+            'capacity' => $order->car->supply->equipment->generation->engine->capacity,
+            'pts_series' => $order->car->pts_series,
+            'pts_number' => $order->car->pts_number,
+            'pts_issued_by' => $order->car->pts_issued_by,
+            'pts_issued_at_day' => Carbon::parse($order->car->pts_issued_at)->day,
+            'pts_issued_at_month' => Carbon::parse($order->car->pts_issued_at)->getTranslatedMonthName('Do MMMM'),
+            'pts_issued_at_year' => Carbon::parse($order->car->pts_issued_at)->year,
+            'sts_series' => $order->car->sts_series,
+            'sts_number' => $order->car->sts_number,
+            'sts_issued_by' => $order->car->sts_issued_by,
+            'sts_issued_at_day' => Carbon::parse($order->car->sts_issued_at)->day,
+            'sts_issued_at_month' => Carbon::parse($order->car->sts_issued_at)->getTranslatedMonthName('Do MMMM'),
+            'sts_issued_at_year' => Carbon::parse($order->car->sts_issued_at)->year,
+            'price' => $order->price,
+            'nds' => round($order->price/100*20),
+            'day_10' => today()->addDays(10)->day,
+            'month_10' => today()->addDays(10)->getTranslatedMonthName('Do MMMM'),
+            'year_10' => today()->addDays(10)->year,
+        ]);
+        $templateProcessor->setValue('lastname', null);
+        $path = storage_path('app/temp/') . 'Договор КП №' . $order->id . ' ' . now()->format('Y-m-d') . '.docx';
+        $templateProcessor->saveAs($path);
+
+        return response()->download($path);
     }
 
     /**

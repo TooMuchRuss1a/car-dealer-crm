@@ -56,6 +56,9 @@ const destroy = () => {
                                         <Link :href="route('crm.orders.edit', [order.id])">
                                             <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
                                         </Link>
+                                        <a :href="route('crm.orders.download.contract', [order.id])">
+                                            <Button label="Сформировать договор" icon="pi pi-file-o" class="mr-2"/>
+                                        </a>
                                         <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
                                         <ConfirmDialog></ConfirmDialog>
                                         <Toast />
