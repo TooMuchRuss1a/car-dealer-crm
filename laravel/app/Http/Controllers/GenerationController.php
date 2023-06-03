@@ -6,6 +6,7 @@ use App\Http\Requests\GenerationRequest;
 use App\Models\Engine;
 use App\Models\Generation;
 use App\Models\Model;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class GenerationController extends Controller
@@ -13,9 +14,14 @@ class GenerationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $generations = Generation::with('model', 'engine')->orderByDesc('id')->get();
+        $generations = Generation::search($request->search, [
+            '' => ['number'],
+            'model' => ['name'],
+            'model.brand' => ['name'],
+        ])
+            ->with('model', 'engine')->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Generations/Index', compact('generations'));
     }
