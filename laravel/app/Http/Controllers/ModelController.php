@@ -12,9 +12,13 @@ class ModelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $models = Model::with('brand')->orderByDesc('id')->get();
+        $models = Model::search($request->search, [
+            '' => ['name'],
+            'brand' => ['name'],
+        ])
+            ->with('brand')->orderByDesc('id')->get();
         $brands = Brand::orderBy('name')->get();
 
         return Inertia::render('CRM/Models/Index', compact('models', 'brands'));

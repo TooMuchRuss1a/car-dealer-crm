@@ -13,6 +13,7 @@ import Dropdown from 'primevue/dropdown';
 import InputText from 'primevue/inputtext';
 import Dialog from 'primevue/dialog';
 import ProgressBar from 'primevue/progressbar';
+import SearchField from "../../../Components/SearchField.vue";
 
 const props = defineProps({
     models: Object,
@@ -66,7 +67,10 @@ const hideDialog = () => {
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    <div class="space-x-2">
+                                        <SearchField/>
+                                        <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    </div>
                                 </template>
                             </Toolbar>
                             <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать марку" :modal="true" class="p-fluid">
@@ -104,6 +108,9 @@ const hideDialog = () => {
                         <template #content>
                             <div class="card">
                                 <DataTable :value="models" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <template #empty>
+                                        <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
+                                    </template>
                                     <Column field="id" header="ID" sortable style="width: 10%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.id])" v-text="slotProps.data.id" />
