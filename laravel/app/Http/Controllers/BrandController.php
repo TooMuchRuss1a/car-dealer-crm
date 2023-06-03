@@ -12,9 +12,13 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $brands = Brand::with('country')->orderByDesc('id')->get();
+        $brands = Brand::search($request->search, [
+            '' => ['name'],
+            'country' => ['name'],
+        ])
+            ->with('country')->orderByDesc('id')->get();
         $countries = Country::orderBy('name')->get();
 
         return Inertia::render('CRM/Brands/Index', compact('brands', 'countries'));
