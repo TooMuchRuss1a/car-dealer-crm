@@ -11,9 +11,9 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::orderByDesc('id')->get();
+        $suppliers = Supplier::search($request->search, ['' => ['name', 'email'],])->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Suppliers/Index', compact('suppliers'));
     }
