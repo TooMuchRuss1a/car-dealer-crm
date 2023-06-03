@@ -27,8 +27,10 @@ const props = defineProps({
                         </template>
                         <template #content>
                             <div class="card">
-                                <div v-if="Object.keys(cars).length === 0" class="md:text-xl text-base text-center">По вашему запросу ничего не нашлось</div>
                                 <DataView :value="cars">
+                                    <template #empty>
+                                        <div class="md:text-xl text-base text-center">По вашему запросу ничего не нашлось</div>
+                                    </template>
                                     <template #list="slotProps">
                                         <a :href="route('catalog.show', [slotProps.data.id])" class="col-12">
                                             <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4 hover:bg-black-alpha-10 transition ease-in-out duration-150 border-b">

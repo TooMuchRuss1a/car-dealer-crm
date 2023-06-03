@@ -12,9 +12,16 @@ class RequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $carRequests = CarRequest::with('car.supply.equipment.generation.model.brand', 'user')->orderByDesc('id')->get();
+        $carRequests = CarRequest::search($request->search, [
+            '' => ['name', 'phone', 'comment'],
+            'car.supply.equipment' => ['name'],
+            'car.supply.equipment.generation.model' => ['name'],
+            'car.supply.equipment.generation.model.brand' => ['name'],
+            'user' => ['name']
+        ])
+        ->with('car.supply.equipment.generation.model.brand', 'user')->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Requests/Index', compact('carRequests'));
     }
