@@ -15,7 +15,7 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         $brands = Brand::search($request->search, [
-            '' => ['name'],
+            '' => ['id', 'name'],
             'country' => ['name'],
         ])
             ->with('country')

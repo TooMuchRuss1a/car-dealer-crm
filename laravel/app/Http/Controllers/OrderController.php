@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::search($request->search, [
-            '' => ['comment'],
+            '' => ['id', 'comment'],
             'car' => ['state_number'],
             'car.supply.equipment' => ['name'],
             'car.supply.equipment.generation.model' => ['name'],

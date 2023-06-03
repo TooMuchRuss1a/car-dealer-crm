@@ -16,6 +16,7 @@ class SupplyController extends Controller
     public function index(Request $request)
     {
         $supplies = Supply::search($request->search, [
+            '' => ['id'],
             'equipment' => ['name'],
             'equipment.generation.model' => ['name'],
             'equipment.generation.model.brand' => ['name'],

@@ -15,7 +15,7 @@ class ModelController extends Controller
     public function index(Request $request)
     {
         $models = Model::search($request->search, [
-            '' => ['name'],
+            '' => ['id', 'name'],
             'brand' => ['name'],
         ])
             ->with('brand')->orderByDesc('id')->get();

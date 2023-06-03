@@ -14,7 +14,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = Customer::search($request->search, ['' => ['name', 'phone', 'email']])->orderByDesc('id')->get();
+        $customers = Customer::search($request->search, ['' => ['id', 'name', 'phone', 'email']])->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Customers/Index', compact('customers'));
     }

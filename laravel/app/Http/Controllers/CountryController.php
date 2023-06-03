@@ -13,7 +13,7 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $countries = Country::search($request->search, ['' => ['name'],])->orderByDesc('id')->get();
+        $countries = Country::search($request->search, ['' => ['id', 'name'],])->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Countries/Index', compact('countries'));
     }

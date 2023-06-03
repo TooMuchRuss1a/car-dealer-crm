@@ -18,7 +18,7 @@ class EquipmentController extends Controller
     public function index(Request $request)
     {
         $equipments = Equipment::search($request->search, [
-            '' => ['name'],
+            '' => ['id', 'name'],
             'generation' => ['number'],
             'generation.model' => ['name'],
             'generation.model.brand' => ['name'],

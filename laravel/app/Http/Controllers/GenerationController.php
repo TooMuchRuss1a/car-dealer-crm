@@ -17,7 +17,7 @@ class GenerationController extends Controller
     public function index(Request $request)
     {
         $generations = Generation::search($request->search, [
-            '' => ['number'],
+            '' => ['id', 'number'],
             'model' => ['name'],
             'model.brand' => ['name'],
         ])

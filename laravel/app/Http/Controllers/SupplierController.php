@@ -13,7 +13,7 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        $suppliers = Supplier::search($request->search, ['' => ['name', 'email'],])->orderByDesc('id')->get();
+        $suppliers = Supplier::search($request->search, ['' => ['id', 'name', 'email'],])->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Suppliers/Index', compact('suppliers'));
     }

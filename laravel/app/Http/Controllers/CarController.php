@@ -16,7 +16,7 @@ class CarController extends Controller
     public function index(Request $request)
     {
         $cars = Car::search($request->search, [
-            '' => ['state_number', 'vin', 'release_date'],
+            '' => ['id', 'state_number', 'vin', 'release_date'],
             'supply.equipment' => ['name'],
             'supply.equipment.generation' => ['number'],
             'supply.equipment.generation.model' => ['name'],

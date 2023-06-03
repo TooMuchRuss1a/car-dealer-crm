@@ -15,7 +15,7 @@ class RequestController extends Controller
     public function index(Request $request)
     {
         $carRequests = CarRequest::search($request->search, [
-            '' => ['name', 'phone', 'comment'],
+            '' => ['id', 'name', 'phone', 'comment'],
             'car' => ['state_number'],
             'car.supply.equipment' => ['name'],
             'car.supply.equipment.generation.model' => ['name'],

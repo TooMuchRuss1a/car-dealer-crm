@@ -15,7 +15,7 @@ class EngineController extends Controller
      */
     public function index(Request $request)
     {
-        $engines = Engine::search($request->search, ['' => ['name']])->orderByDesc('id')->get();
+        $engines = Engine::search($request->search, ['' => ['id', 'name']])->orderByDesc('id')->get();
         $fuels = Fuel::array();
 
         return Inertia::render('CRM/Engines/Index', compact('engines', 'fuels'));
