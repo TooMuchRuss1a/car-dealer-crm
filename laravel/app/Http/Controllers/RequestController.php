@@ -16,6 +16,7 @@ class RequestController extends Controller
     {
         $carRequests = CarRequest::search($request->search, [
             '' => ['name', 'phone', 'comment'],
+            'car' => ['state_number'],
             'car.supply.equipment' => ['name'],
             'car.supply.equipment.generation.model' => ['name'],
             'car.supply.equipment.generation.model.brand' => ['name'],

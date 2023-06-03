@@ -7,6 +7,7 @@ import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
 import {Link} from "@inertiajs/vue3";
 import Toast from 'primevue/toast';
+import SearchField from "../../../Components/SearchField.vue";
 
 const props = defineProps({
     orders: Object,
@@ -22,10 +23,13 @@ const props = defineProps({
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Link :href="route('crm.orders.create')">
-                                        <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
-                                    </Link>
-                                    <Toast />
+                                    <div class="space-x-2">
+                                        <SearchField/>
+                                        <Link :href="route('crm.orders.create')">
+                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                        </Link>
+                                        <Toast />
+                                    </div>
                                 </template>
                             </Toolbar>
                         </template>

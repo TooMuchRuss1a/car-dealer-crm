@@ -7,6 +7,7 @@ use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -15,9 +16,18 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('customer', 'user', 'car.supply.equipment.generation.model.brand')->orderByDesc('id')->get();
+        $orders = Order::search($request->search, [
+            '' => ['comment'],
+            'car' => ['state_number'],
+            'car.supply.equipment' => ['name'],
+            'car.supply.equipment.generation.model' => ['name'],
+            'car.supply.equipment.generation.model.brand' => ['name'],
+            'user' => ['name'],
+            'customer' => ['name', 'phone']
+        ])
+        ->with('customer', 'user', 'car.supply.equipment.generation.model.brand')->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Orders/Index', compact('orders'));
     }
