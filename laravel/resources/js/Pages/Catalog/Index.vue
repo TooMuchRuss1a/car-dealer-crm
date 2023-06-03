@@ -4,6 +4,8 @@ import Card from 'primevue/card';
 import DataView from 'primevue/dataview';
 import 'primeflex/primeflex.css';
 import moment from "moment/moment";
+import Toolbar from 'primevue/toolbar';
+import SearchField from "../../Components/SearchField.vue";
 
 const props = defineProps({
     cars: Object,
@@ -16,8 +18,16 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
+                        <template #title>
+                            <Toolbar class="mb-4">
+                                <template #start>
+                                    <SearchField/>
+                                </template>
+                            </Toolbar>
+                        </template>
                         <template #content>
                             <div class="card">
+                                <div v-if="Object.keys(cars).length === 0" class="md:text-xl text-base text-center">По вашему запросу ничего не нашлось</div>
                                 <DataView :value="cars">
                                     <template #list="slotProps">
                                         <a :href="route('catalog.show', [slotProps.data.id])" class="col-12">

@@ -12,6 +12,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 import 'primeicons/primeicons.css';
+import SearchField from "./Components/SearchField.vue";
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 

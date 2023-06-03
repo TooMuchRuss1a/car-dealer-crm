@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EModel;
 
 class Car extends EModel
 {
-    use HasFactory;
+    use HasFactory, SearchTrait;
 
     public $timestamps = false;
 
