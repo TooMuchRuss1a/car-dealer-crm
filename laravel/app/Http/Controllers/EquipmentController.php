@@ -23,7 +23,9 @@ class EquipmentController extends Controller
             'generation.model' => ['name'],
             'generation.model.brand' => ['name'],
         ])
-            ->with('generation.model.brand')->orderByDesc('id')->get();
+            ->with('generation.model.brand')
+            ->orderByDesc('id')
+            ->get();
         $types = Type::array();
         $bodies = Body::array();
 

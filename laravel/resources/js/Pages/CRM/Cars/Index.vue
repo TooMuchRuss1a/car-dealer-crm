@@ -4,6 +4,8 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Card from 'primevue/card';
 import moment from "moment";
+import Toolbar from 'primevue/toolbar';
+import SearchField from "../../../Components/SearchField.vue";
 
 const props = defineProps({
     cars: Object,
@@ -17,9 +19,21 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
+                        <template #title>
+                            <Toolbar class="mb-4">
+                                <template #start>
+                                    <div class="space-x-2">
+                                        <SearchField/>
+                                    </div>
+                                </template>
+                            </Toolbar>
+                        </template>
                         <template #content>
                             <div class="card">
                                 <DataTable :value="cars" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <template #empty>
+                                        <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
+                                    </template>
                                     <Column field="id" header="ID" sortable style="width: 10%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.cars.show', [slotProps.data.id])" v-text="slotProps.data.id" />

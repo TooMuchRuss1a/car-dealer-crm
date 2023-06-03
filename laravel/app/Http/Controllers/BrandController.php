@@ -18,7 +18,9 @@ class BrandController extends Controller
             '' => ['name'],
             'country' => ['name'],
         ])
-            ->with('country')->orderByDesc('id')->get();
+            ->with('country')
+            ->orderByDesc('id')
+            ->get();
         $countries = Country::orderBy('name')->get();
 
         return Inertia::render('CRM/Brands/Index', compact('brands', 'countries'));

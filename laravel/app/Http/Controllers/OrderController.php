@@ -27,7 +27,9 @@ class OrderController extends Controller
             'user' => ['name'],
             'customer' => ['name', 'phone']
         ])
-        ->with('customer', 'user', 'car.supply.equipment.generation.model.brand')->orderByDesc('id')->get();
+            ->with('customer', 'user', 'car.supply.equipment.generation.model.brand')
+            ->orderByDesc('id')
+            ->get();
 
         return Inertia::render('CRM/Orders/Index', compact('orders'));
     }

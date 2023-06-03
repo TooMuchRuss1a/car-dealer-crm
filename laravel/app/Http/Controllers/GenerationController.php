@@ -21,7 +21,9 @@ class GenerationController extends Controller
             'model' => ['name'],
             'model.brand' => ['name'],
         ])
-            ->with('model', 'engine')->orderByDesc('id')->get();
+            ->with('model', 'engine')
+            ->orderByDesc('id')
+            ->get();
 
         return Inertia::render('CRM/Generations/Index', compact('generations'));
     }

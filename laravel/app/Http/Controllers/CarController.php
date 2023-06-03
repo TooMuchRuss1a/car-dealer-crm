@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\CarStatus;
 use App\Http\Requests\CarRequest;
 use App\Models\Car;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CarController extends Controller
@@ -12,9 +13,18 @@ class CarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::with('supply.equipment.generation.model.brand')->orderByDesc('id')->get();
+        $cars = Car::search($request->search, [
+            '' => ['state_number', 'vin', 'release_date'],
+            'supply.equipment' => ['name'],
+            'supply.equipment.generation' => ['number'],
+            'supply.equipment.generation.model' => ['name'],
+            'supply.equipment.generation.model.brand' => ['name'],
+        ])
+            ->with('supply.equipment.generation.model.brand')
+            ->orderByDesc('id')
+            ->get();
         $statuses = CarStatus::array();
 
         return Inertia::render('CRM/Cars/Index', compact('cars', 'statuses'));
