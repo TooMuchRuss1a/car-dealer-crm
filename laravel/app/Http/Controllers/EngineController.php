@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Fuel;
 use App\Http\Requests\EngineRequest;
 use App\Models\Engine;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EngineController extends Controller
@@ -12,9 +13,9 @@ class EngineController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $engines = Engine::orderByDesc('id')->get();
+        $engines = Engine::search($request->search, ['' => ['name']])->orderByDesc('id')->get();
         $fuels = Fuel::array();
 
         return Inertia::render('CRM/Engines/Index', compact('engines', 'fuels'));
