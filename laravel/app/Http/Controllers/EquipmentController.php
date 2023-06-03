@@ -7,6 +7,7 @@ use App\Enums\Type;
 use App\Http\Requests\EquipmentRequest;
 use App\Models\Equipment;
 use App\Models\Generation;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EquipmentController extends Controller
@@ -14,9 +15,15 @@ class EquipmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $equipments = Equipment::with('generation.model.brand')->orderByDesc('id')->get();
+        $equipments = Equipment::search($request->search, [
+            '' => ['name'],
+            'generation' => ['number'],
+            'generation.model' => ['name'],
+            'generation.model.brand' => ['name'],
+        ])
+            ->with('generation.model.brand')->orderByDesc('id')->get();
         $types = Type::array();
         $bodies = Body::array();
 
