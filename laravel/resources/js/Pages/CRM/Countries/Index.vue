@@ -12,6 +12,7 @@ import Toast from 'primevue/toast';
 import Toolbar from 'primevue/toolbar';
 import {useForm} from "@inertiajs/vue3";
 import {useToast} from "primevue/usetoast";
+import SearchField from "../../../Components/SearchField.vue";
 
 const props = defineProps({
     countries: Object,
@@ -60,10 +61,16 @@ const hideDialog = () => {
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    <div class="space-x-2">
+                                        <SearchField/>
+                                        <Button label="Создать" icon="pi pi-plus" class="mr-2" @click="openForm"/>
+                                    </div>
                                 </template>
                             </Toolbar>
                             <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать страну" :modal="true" class="p-fluid">
+                                <template #empty>
+                                    <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
+                                </template>
                                 <div class="field">
                                     <label for="name">Наименование</label>
                                     <InputText id="name" v-model.trim="form.name" v-bind:disabled="form.processing" required="true" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}" />
