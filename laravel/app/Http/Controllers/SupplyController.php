@@ -13,9 +13,18 @@ class SupplyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $supplies = Supply::with('equipment', 'supplier', 'user')->orderByDesc('id')->get();
+        $supplies = Supply::search($request->search, [
+            'equipment' => ['name'],
+            'equipment.generation.model' => ['name'],
+            'equipment.generation.model.brand' => ['name'],
+            'user' => ['name'],
+            'supplier' => ['name', 'email'],
+        ])
+            ->with('equipment', 'supplier', 'user')
+            ->orderByDesc('id')
+            ->get();
 
         return Inertia::render('CRM/Supplies/Index', compact('supplies'));
     }

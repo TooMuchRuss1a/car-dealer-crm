@@ -7,6 +7,7 @@ import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
 import {Link} from "@inertiajs/vue3";
 import Toast from 'primevue/toast';
+import SearchField from "../../../Components/SearchField.vue";
 
 const props = defineProps({
     supplies: Object,
@@ -22,16 +23,22 @@ const props = defineProps({
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <Link :href="route('crm.supplies.create')">
-                                        <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
-                                    </Link>
-                                    <Toast />
+                                    <div class="space-x-2">
+                                        <SearchField/>
+                                        <Link :href="route('crm.supplies.create')">
+                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                        </Link>
+                                        <Toast />
+                                    </div>
                                 </template>
                             </Toolbar>
                         </template>
                         <template #content>
                             <div class="card">
                                 <DataTable :value="supplies" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <template #empty>
+                                        <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
+                                    </template>
                                     <Column field="id" header="ID" sortable style="width: 5%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.supplies.show', [slotProps.data.id])" v-text="slotProps.data.id" />
