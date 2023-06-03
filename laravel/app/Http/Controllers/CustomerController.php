@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -11,9 +12,9 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::orderByDesc('id')->get();
+        $customers = Customer::search($request->search, ['' => ['name', 'phone', 'email']])->orderByDesc('id')->get();
 
         return Inertia::render('CRM/Customers/Index', compact('customers'));
     }

@@ -36,6 +36,9 @@ const props = defineProps({
                         <template #content>
                             <div class="card">
                                 <DataTable :value="orders" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <template #empty>
+                                        <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
+                                    </template>
                                     <Column field="id" header="ID" sortable style="width: 5%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.orders.show', [slotProps.data.id])" v-text="slotProps.data.id" />
