@@ -25,11 +25,20 @@ const filter = ref({
     status: null,
 });
 
+function getUrlParams() {
+    const result = {}
+    for(const [key, value] of new URLSearchParams(window.location.search)) {
+        result[key] = value;
+    }
+    return result;
+}
 const initSearch = debounce(() => {
     loading.value = true;
+    let params = getUrlParams();
     router.get(
         route(route().current()),
         {
+            ...params,
             status: filter.value.status,
         },
         {

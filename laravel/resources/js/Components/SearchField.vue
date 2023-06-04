@@ -6,12 +6,21 @@ const search = ref('')
 import {router} from '@inertiajs/vue3';
 
 const searching = ref(false);
+function getUrlParams() {
+    const result = {}
+    for(const [key, value] of new URLSearchParams(window.location.search)) {
+        result[key] = value;
+    }
+    return result;
+}
 const initSearch = debounce(() => {
     searching.value = true;
+    let params = getUrlParams();
     router.get(
         route(route().current()),
         {
-            search: search.value
+            ...params,
+            search: search.value,
         },
         {
             preserveState: true,
