@@ -22,11 +22,13 @@ class RequestController extends Controller
             'car.supply.equipment.generation.model.brand' => ['name'],
             'user' => ['name']
         ])
+            ->filter($request->all())
             ->with('car.supply.equipment.generation.model.brand', 'user')
             ->orderByDesc('id')
             ->get();
+        $statuses = RequestStatus::array();
 
-        return Inertia::render('CRM/Requests/Index', compact('carRequests'));
+        return Inertia::render('CRM/Requests/Index', compact('carRequests', 'statuses'));
     }
 
     /**

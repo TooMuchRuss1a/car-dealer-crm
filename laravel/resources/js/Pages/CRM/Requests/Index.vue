@@ -5,10 +5,48 @@ import Column from 'primevue/column';
 import Card from 'primevue/card';
 import Toolbar from 'primevue/toolbar';
 import SearchField from "../../../Components/SearchField.vue";
+import {onMounted, ref, watch} from "vue";
+import Dropdown from 'primevue/dropdown';
+import {debounce} from "lodash";
+import {router} from "@inertiajs/vue3";
+import Button from 'primevue/button';
 
 const props = defineProps({
     carRequests: Object,
+    statuses: Object,
 });
+
+const loading = ref(false);
+let dropdownStatuses = ref();
+const filter = ref({
+    status: null,
+});
+onMounted(() => {
+    dropdownStatuses.value = [];
+    Object.entries(props.statuses).forEach(entry => {
+        const [key, value] = entry;
+        dropdownStatuses.value.push({option: value, value: key})
+    })
+});
+
+const initSearch = debounce(() => {
+    loading.value = true;
+    router.get(
+        route(route().current()),
+        {
+            status: filter.value.status,
+        },
+        {
+            preserveState: true,
+            onSuccess: params => {
+                loading.value = false;
+            }
+        },
+    );
+}, 500)
+watch([filter.value], () =>
+    initSearch()
+)
 </script>
 
 <template>
@@ -21,6 +59,12 @@ const props = defineProps({
                             <Toolbar class="mb-4">
                                 <template #start>
                                     <SearchField/>
+                                </template>
+                                <template #end>
+                                    <div class="p-inputgroup flex-1">
+                                        <Dropdown :disabled="loading" v-model="filter.status" :options="dropdownStatuses" optionLabel="option" optionValue="value" placeholder="Статус"/>
+                                        <Button v-if="filter.status" icon="pi pi-times" severity="danger" @click="filter.status = null"/>
+                                    </div>
                                 </template>
                             </Toolbar>
                         </template>
