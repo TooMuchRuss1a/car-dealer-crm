@@ -27,6 +27,7 @@ class OrderController extends Controller
             'user' => ['name'],
             'customer' => ['name', 'phone']
         ])
+            ->filter($request->all())
             ->with('customer', 'user', 'car.supply.equipment.generation.model.brand')
             ->orderByDesc('id')
             ->get();

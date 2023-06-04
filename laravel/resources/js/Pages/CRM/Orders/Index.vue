@@ -5,13 +5,45 @@ import Column from 'primevue/column';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
-import {Link} from "@inertiajs/vue3";
+import {Link, router} from "@inertiajs/vue3";
 import Toast from 'primevue/toast';
 import SearchField from "../../../Components/SearchField.vue";
+import MultiSelect from 'primevue/multiselect';
+import {ref, watch} from "vue";
+import {debounce} from "lodash";
 
 const props = defineProps({
     orders: Object,
 });
+const loading = ref(false);
+let dropdownStatuses = ref([
+    {option: 'Подписание договора', value: 'CONTRACT'},
+    {option: 'Передача авто', value: 'CAR'},
+    {option: 'Оплата', value: 'PAYMENT'},
+    {option: 'Завершено', value: 'DONE'},
+]);
+const filter = ref({
+    status: null,
+});
+
+const initSearch = debounce(() => {
+    loading.value = true;
+    router.get(
+        route(route().current()),
+        {
+            status: filter.value.status,
+        },
+        {
+            preserveState: true,
+            onSuccess: params => {
+                loading.value = false;
+            }
+        },
+    );
+}, 500)
+watch([filter.value], () =>
+    initSearch()
+)
 </script>
 
 <template>
@@ -29,6 +61,12 @@ const props = defineProps({
                                             <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
                                         </Link>
                                         <Toast />
+                                    </div>
+                                </template>
+                                <template #end>
+                                    <div class="p-inputgroup flex-1">
+                                        <MultiSelect v-model="filter.status" :options="dropdownStatuses" optionLabel="option" optionValue="value" placeholder="Статус"/>
+                                        <Button v-if="filter.status" icon="pi pi-times" severity="danger" @click="filter.status = null"/>
                                     </div>
                                 </template>
                             </Toolbar>
