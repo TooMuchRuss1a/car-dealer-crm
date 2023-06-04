@@ -32,8 +32,9 @@ class CarController extends Controller
         $brands = Brand::orderBy('name')->get();
         $models = Model::where('brand_id', '=', $request->brand)->orderBy('name')->get();
         $generations = Generation::where('model_id', '=', $request->model)->orderBy('number')->get();
+        $statuses = CarStatus::array();
 
-        return Inertia::render('CRM/Cars/Index', compact('cars', 'brands', 'models', 'generations'));
+        return Inertia::render('CRM/Cars/Index', compact('cars', 'brands', 'models', 'generations', 'statuses'));
     }
 
     /**

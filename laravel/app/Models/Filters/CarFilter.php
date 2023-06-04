@@ -58,4 +58,9 @@ class CarFilter extends ModelFilter
     {
         $this->where('price', '<=', $price);
     }
+
+    public function status($status)
+    {
+        $this->where('status', '=', $status);
+    }
 }

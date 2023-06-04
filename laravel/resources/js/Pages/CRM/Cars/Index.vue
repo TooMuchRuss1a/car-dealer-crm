@@ -6,7 +6,7 @@ import Card from 'primevue/card';
 import moment from "moment";
 import SearchField from "../../../Components/SearchField.vue";
 import Dropdown from 'primevue/dropdown';
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {debounce} from "lodash";
 import {router} from "@inertiajs/vue3";
 import Calendar from 'primevue/calendar';
@@ -15,12 +15,14 @@ import Button from 'primevue/button';
 
 const props = defineProps({
     cars: Object,
+    statuses: Object,
     brands: Object,
     models: Object,
     generations: Object,
 });
 
 const loading = ref(false);
+let dropdownStatuses = ref();
 const filter = ref({
     brand: null,
     model: null,
@@ -29,6 +31,14 @@ const filter = ref({
     yearTo: null,
     priceFrom: null,
     priceTo: null,
+    status: null
+});
+onMounted(() => {
+    dropdownStatuses.value = [];
+    Object.entries(props.statuses).forEach(entry => {
+        const [key, value] = entry;
+        dropdownStatuses.value.push({option: value, value: key})
+    })
 });
 
 const initSearch = debounce(() => {
@@ -43,6 +53,7 @@ const initSearch = debounce(() => {
             yearTo: filter.value.yearTo ? moment(filter.value.yearTo).format("YYYY-MM-DD") : null,
             priceFrom: filter.value.priceFrom,
             priceTo: filter.value.priceTo,
+            status: filter.value.status,
         },
         {
             preserveState: true,
@@ -131,6 +142,10 @@ watch([filter.value], () =>
                                         <div class="p-inputgroup flex-1">
                                             <InputNumber v-model="filter.priceTo" :disabled="loading" :max="9999999999.99" mode="currency" currency="RUB" locale="ru-RU" placeholder="до"/>
                                             <Button v-if="filter.priceTo" icon="pi pi-times" severity="danger" @click="filter.priceTo = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <Dropdown :disabled="loading" v-model="filter.status" :options="dropdownStatuses" optionLabel="option" optionValue="value" placeholder="Статус"/>
+                                            <Button v-if="filter.status" icon="pi pi-times" severity="danger" @click="filter.status = null"/>
                                         </div>
                                     </div>
                                 </div>
