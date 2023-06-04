@@ -23,6 +23,7 @@ class SupplyController extends Controller
             'user' => ['name'],
             'supplier' => ['name', 'email'],
         ])
+            ->filter($request->all())
             ->with('equipment', 'supplier', 'user')
             ->orderByDesc('id')
             ->get();

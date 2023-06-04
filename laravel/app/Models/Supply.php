@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\SearchTrait;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EModel;
 
 class Supply extends EModel
 {
-    use HasFactory, SearchTrait;
+    use HasFactory, SearchTrait, Filterable;
 
     public $timestamps = false;
 
