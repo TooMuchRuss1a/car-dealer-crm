@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import 'primeflex/primeflex.css';
 
 defineProps({
     title: String,
@@ -39,80 +40,80 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('catalog.index')" :active="route().current('catalog.index')">
                                     Каталог
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.requests.index')" :active="route().current('crm.requests.index')">
                                     Заявки
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.orders.index')" :active="route().current('crm.orders.index')">
                                     Заказы
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.customers.index')" :active="route().current('crm.customers.index')">
                                     Клиенты
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.brands.index')" :active="route().current('crm.brands.index')">
                                     Марки
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.models.index')" :active="route().current('crm.models.index')">
                                     Модели
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.generations.index')" :active="route().current('crm.generations.index')">
                                     Поколения
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.equipments.index')" :active="route().current('crm.equipments.index')">
                                     Комплектации
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.cars.index')" :active="route().current('crm.cars.index')">
                                     Авто
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.engines.index')" :active="route().current('crm.engines.index')">
                                     Двигатели
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.supplies.index')" :active="route().current('crm.supplies.index')">
                                     Поставки
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.suppliers.index')" :active="route().current('crm.suppliers.index')">
                                     Поставщики
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-3 sm:flex">
+                            <div v-if="$page.props.auth.user" class="hidden space-x-8 sm:-my-px sm:ml-2 sm:flex">
                                 <NavLink :href="route('crm.countries.index')" :active="route().current('crm.countries.index')">
                                     Страны
                                 </NavLink>
                             </div>
                         </div>
 
-                        <div v-if="$page.props.auth.user" class="hidden sm:flex sm:items-center sm:ml-5">
+                        <div v-if="$page.props.auth.user" class="hidden sm:flex sm:items-center sm:ml-3">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-black hover:text-gray-500 transition ease-in-out duration-150">
+                                            <button type="button" class="inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-black hover:text-gray-500 transition ease-in-out duration-150">
                                                 <i class="pi pi-user"></i>
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

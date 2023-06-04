@@ -2,7 +2,6 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from 'primevue/card';
 import DataView from 'primevue/dataview';
-import 'primeflex/primeflex.css';
 import moment from "moment/moment";
 import SearchField from "../../Components/SearchField.vue";
 import Dropdown from 'primevue/dropdown';
