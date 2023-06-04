@@ -58,16 +58,16 @@ watch([filter.value], () =>
 <template>
     <AppLayout title="Поставки">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="space-x-2">
+                                    <div class="space-x-2 flex">
                                         <SearchField/>
                                         <Link :href="route('crm.supplies.create')">
-                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                            <Button label="Создать" icon="pi pi-plus"/>
                                         </Link>
                                         <Toast />
                                     </div>
@@ -86,32 +86,32 @@ watch([filter.value], () =>
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>
-                                    <Column field="id" header="ID" sortable style="width: 5%">
+                                    <Column field="id" header="ID" sortable>
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.supplies.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
-                                    <Column field="model_id" header="Комплектация" style="width: 20%">
+                                    <Column field="model_id" header="Комплектация">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.equipment_id])" v-text="slotProps.data.equipment.name" />
                                         </template>
                                     </Column>
-                                    <Column field="supplier_id" header="Поставщик" style="width: 20%">
+                                    <Column field="supplier_id" header="Поставщик">
                                         <template #body="slotProps">
                                             <a v-if="slotProps.data.supplier_id" class="text-blue-600" :href="route('crm.suppliers.show', [slotProps.data.supplier_id])" v-text="slotProps.data.supplier.name" />
                                         </template>
                                     </Column>
-                                    <Column field="user_id" header="Сотрудник" style="width: 30%">
+                                    <Column field="user_id" header="Сотрудник">
                                         <template #body="slotProps">
                                             {{slotProps.data.user.name}}
                                         </template>
                                     </Column>
-                                    <Column field="user_id" header="Цена" style="width: 20%">
+                                    <Column field="user_id" header="Цена">
                                         <template #body="slotProps">
                                             {{slotProps.data.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(slotProps.data.price) : ''}}
                                         </template>
                                     </Column>
-                                    <Column field="status" header="Статус" style="width: 5%">
+                                    <Column field="status" header="Статус">
                                         <template #body="slotProps">
                                             <i v-if="slotProps.data.supplied_at" style="color: green;" class="pi pi-check-circle" v-tooltip="'Автомобиль прибыл'"></i>
                                             <i v-else-if="slotProps.data.supplier_id" style="color: dodgerblue;" class="pi pi-clock" v-tooltip="'Автомобиль поставляется'"></i>

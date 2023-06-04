@@ -74,7 +74,7 @@ const store = () => {
 <template>
     <AppLayout title="Комплектации">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
@@ -83,7 +83,7 @@ const store = () => {
                         </template>
                         <template #content>
                             <div class="space-y-8">
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.name : ''" >
                                             <InputText v-model.trim="form.name" v-bind:disabled="form.processing" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}"/>
@@ -120,7 +120,7 @@ const store = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.doors_count : ''">
                                             <InputNumber :useGrouping="false" id="doors_count" v-model.trim="form.doors_count" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.doors_count}" />
@@ -152,7 +152,7 @@ const store = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.max_speed : ''">
                                             <InputNumber id="max_speed" :useGrouping="false" suffix=" км/ч" v-model.trim="form.max_speed" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.max_speed}" />
@@ -172,7 +172,7 @@ const store = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.fuel_consumption_90 : ''">
                                             <InputNumber :useGrouping="false" suffix=" л/100км" :minFractionDigits="1" id="fuel_consumption_90" v-model.trim="form.fuel_consumption_90" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.fuel_consumption_90}" />

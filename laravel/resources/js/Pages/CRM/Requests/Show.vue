@@ -66,18 +66,18 @@ const destroy = () => {
 <template>
     <AppLayout title="Заявки">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
+                                    <div class="space-x-2 flex">
                                         <Link :href="route('crm.requests.edit', [carRequest.id])">
-                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil"/>
                                         </Link>
-                                        <Button v-if="form.status" @click="nextStatus()" :label="form.status === 'IN_PROGRESS' ? 'Взять в работу' : 'Закрыть'" icon="pi pi-caret-right" class="mr-2"/>
-                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
+                                        <Button v-if="form.status" @click="nextStatus()" :label="form.status === 'IN_PROGRESS' ? 'Взять в работу' : 'Закрыть'" icon="pi pi-caret-right"/>
+                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash"/>
                                         <ConfirmDialog></ConfirmDialog>
                                         <Toast />
                                     </div>
@@ -89,7 +89,7 @@ const destroy = () => {
                                 <div class="relative overflow-x-auto">
                                     <table class="w-full text-sm text-left">
                                         <tbody>
-                                        <tr class="brequest-b">
+                                        <tr class="border-b">
                                             <th scope="row" colspan="2" class="text-lg px-6 py-4 font-bold text-gray-900 whitespace-nowrap space-x-1">
                                                 Основное
                                                 <i v-if="carRequest.status === 'OPEN'" style="color: dodgerblue;" class="pi pi-clock" v-tooltip="'Открыта: необходимо взять в работу'"></i>
@@ -97,43 +97,43 @@ const destroy = () => {
                                                 <i v-else-if="carRequest.status === 'CLOSED'" style="color: dodgerblue;" class="pi pi-thumbs-up" v-tooltip="'Закрыта'"></i>
                                             </th>
                                         </tr>
-                                        <tr class="brequest-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                        <tr class="border-b">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Имя
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 {{carRequest.name}}
                                             </td>
                                         </tr>
-                                        <tr class="brequest-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                        <tr class="border-b">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Телефон
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 {{carRequest.phone}}
                                             </td>
                                         </tr>
-                                        <tr class="brequest-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                        <tr class="border-b">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Авто
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 <a class="text-blue-600" :href="route('crm.cars.show', [carRequest.car.id])" v-text="carRequest.car.state_number + ' | ' + carRequest.car.supply.equipment.name + ' | ' + carRequest.car.supply.equipment.generation.model.name + ' | ' + carRequest.car.supply.equipment.generation.model.brand.name" />
                                             </td>
                                         </tr>
-                                        <tr class="brequest-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                        <tr class="border-b">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Сотрудник
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 {{carRequest.user?.name}}
                                             </td>
                                         </tr>
-                                        <tr class="brequest-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap align-top">
+                                        <tr class="border-b">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap align-top">
                                                 Комментарий
                                             </th>
-                                            <td class="px-6 py-4 whitespace-pre-wrap">
+                                            <td class="px-6 py-3 whitespace-pre-wrap">
                                                 {{carRequest.comment}}
                                             </td>
                                         </tr>

@@ -95,15 +95,15 @@ const destroy = () => {
 <template>
     <AppLayout title="Авто">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
+                                    <div class="space-x-2 flex">
                                         <Link :href="route('crm.cars.edit', [car.id])">
-                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil"/>
                                         </Link>
                                         <FileUpload v-if="images.length === 0" mode="basic" accept="image/*" @select="onFileSelect($event)" chooseLabel="Загрузить фото" customUpload @uploader="store" />
                                         <Toast />
@@ -141,82 +141,82 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Поставка
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     <a class="text-blue-600" :href="route('crm.supplies.show', [car.supply.id])" v-text="car.supply.id" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Комплектация
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     <a class="text-blue-600" :href="route('crm.equipments.show', [car.supply.equipment.id])" v-text="car.supply.equipment.name + ' | ' + car.supply.equipment.generation.model.name + ' | ' + car.supply.equipment.generation.model.brand.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Цена
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(car.price) : ''}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Цвет
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.color}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Пробег
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.mileage ? car.mileage + ' км' : ''}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Год выпуска
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.release_date ? moment(car.release_date).format("YYYY") + ' г.' : ''}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     VIN
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.vin}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Номер шасси
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.chassis_number}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Номер кузова
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.body_number}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Гос. номер
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.state_number}}
                                                 </td>
                                             </tr>
@@ -226,34 +226,34 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Серия
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.pts_series}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Номер
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.pts_number}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Выдан
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.pts_issued_by}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Дата выдачи
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.pts_issued_at ? moment(car.pts_issued_at).format("DD.MM.YYYY") : ''}}
                                                 </td>
                                             </tr>
@@ -263,34 +263,34 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Серия
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.sts_series}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Номер
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.sts_number}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Выдан
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.sts_issued_by}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Дата выдачи
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{car.sts_issued_at ? moment(car.sts_issued_at).format("DD.MM.YYYY") : ''}}
                                                 </td>
                                             </tr>

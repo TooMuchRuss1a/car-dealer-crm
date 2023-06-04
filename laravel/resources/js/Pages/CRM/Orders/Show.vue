@@ -46,20 +46,20 @@ const destroy = () => {
 <template>
     <AppLayout title="Заказы">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
+                                    <div class="space-y-2 sm:space-x-2 flex-col">
                                         <Link :href="route('crm.orders.edit', [order.id])">
-                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil"/>
                                         </Link>
                                         <a :href="route('crm.orders.download.contract', [order.id])">
-                                            <Button label="Сформировать договор" icon="pi pi-file-o" class="mr-2"/>
+                                            <Button label="Сформировать договор" icon="pi pi-file-o" class="mt-2"/>
                                         </a>
-                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
+                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash"/>
                                         <ConfirmDialog></ConfirmDialog>
                                         <Toast />
                                     </div>
@@ -81,66 +81,66 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Авто
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     <a class="text-blue-600" :href="route('crm.cars.show', [order.car.id])" v-text="order.car.state_number + ' | ' + order.car.supply.equipment.name + ' | ' + order.car.supply.equipment.generation.model.name + ' | ' + order.car.supply.equipment.generation.model.brand.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Клиент
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     <a class="text-blue-600" :href="route('crm.customers.show', [order.customer.id])" v-text="order.customer.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Сотрудник
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{order.user.name}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Создано в
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{order.created_at}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Договор подписан в
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{order.contract_signed_at}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Авто передано в
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{order.car_transferred_at}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Оплата принята полностью в
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{order.payment_received_at}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap align-top">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap align-top">
                                                     Комментарий
                                                 </th>
-                                                <td class="px-6 py-4 whitespace-pre-wrap">
+                                                <td class="px-6 py-3 whitespace-pre-wrap">
                                                     {{order.comment}}
                                                 </td>
                                             </tr>

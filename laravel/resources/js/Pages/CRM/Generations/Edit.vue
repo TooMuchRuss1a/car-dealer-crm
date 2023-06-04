@@ -58,7 +58,7 @@ const update = () => {
 <template>
     <AppLayout title="Поколения">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
@@ -67,7 +67,7 @@ const update = () => {
                         </template>
                         <template #content>
                             <div class="space-y-8">
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.model_id : ''">
                                             <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.model_id}" v-model="form.model_id" :options="models" filter optionLabel="name">
@@ -91,12 +91,18 @@ const update = () => {
                                             <label>Номер поколения</label>
                                         </span>
                                     </div>
-                                    <span class="flex items-center" v-tooltip="form.hasErrors ? form.errors.restyling : ''">
-                                        <Checkbox v-model="form.restyling" :value="true" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.restyling}" />
-                                        <label class="ml-2">Рестайлинг</label>
-                                    </span>
-                                </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                    <div class="p-inputgroup">
+                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.from : ''">
+                                            <Calendar v-model="form.from" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.from}" view="year" dateFormat="yy" />
+                                            <label>С</label>
+                                        </span>
+                                    </div>
+                                    <div class="p-inputgroup">
+                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.to : ''">
+                                            <Calendar v-model="form.to" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.to}" view="year" dateFormat="yy" showButtonBar />
+                                            <label>По</label>
+                                        </span>
+                                    </div>
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.engine_id : ''">
                                             <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.engine_id}" v-model="form.engine_id" :options="engines" filter optionLabel="name">
@@ -114,19 +120,11 @@ const update = () => {
                                             <label>Двигатель</label>
                                         </span>
                                     </div>
-                                    <div class="p-inputgroup">
-                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.from : ''">
-                                            <Calendar v-model="form.from" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.from}" view="year" dateFormat="yy" />
-                                            <label>С</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-inputgroup">
-                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.to : ''">
-                                            <Calendar v-model="form.to" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.to}" view="year" dateFormat="yy" showButtonBar />
-                                            <label>По</label>
-                                        </span>
-                                    </div>
                                 </div>
+                                <span class="flex items-center" v-tooltip="form.hasErrors ? form.errors.restyling : ''">
+                                    <Checkbox v-model="form.restyling" :value="true" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.restyling}" />
+                                    <label class="ml-2">Рестайлинг</label>
+                                </span>
                                 <div class="card flex justify-end mx-4">
                                     <Button v-bind:disabled="form.processing" @click="update" label="Обновить" />
                                 </div>

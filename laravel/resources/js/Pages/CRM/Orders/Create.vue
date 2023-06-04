@@ -53,7 +53,7 @@ const store = () => {
 <template>
     <AppLayout title="Заказы">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
@@ -62,7 +62,7 @@ const store = () => {
                         </template>
                         <template #content>
                             <div class="space-y-8">
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.car_id : ''">
                                             <Dropdown @change="form.price = Number(form.car_id.price)" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.car_id}" v-model="form.car_id" :options="cars" filter :filterFields="['id', 'vin', 'state_number', 'supply.equipment.name', 'supply.equipment.generation.model.name', 'supply.equipment.generation.model.brand.name']">
@@ -110,7 +110,7 @@ const store = () => {
                                         <label>Комментарий</label>
                                     </span>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <label class="flex items-center">
                                         <Checkbox v-model:checked="form.contract_signed_at" name="contract_signed_at" />
                                         <span class="ml-2 text-sm text-gray-600">Договор подписан</span>

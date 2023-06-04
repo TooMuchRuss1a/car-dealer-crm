@@ -46,17 +46,17 @@ const destroy = () => {
 <template>
     <AppLayout title="Клиенты">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
+                                    <div class="space-x-2 flex">
                                         <Link :href="route('crm.customers.edit', [customer.id])">
-                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil"/>
                                         </Link>
-                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
+                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash"/>
                                         <ConfirmDialog></ConfirmDialog>
                                         <Toast />
                                     </div>
@@ -69,34 +69,34 @@ const destroy = () => {
                                     <table class="w-full text-sm text-left">
                                         <tbody>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     ФИО
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{customer.name}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Телефон
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{customer.phone}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Почта
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{customer.email}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap align-top">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap align-top">
                                                     Комментарий
                                                 </th>
-                                                <td class="px-6 py-4 whitespace-pre-wrap">
+                                                <td class="px-6 py-3 whitespace-pre-wrap">
                                                     {{customer.comment}}
                                                 </td>
                                             </tr>

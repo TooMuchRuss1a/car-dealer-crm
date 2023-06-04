@@ -42,7 +42,7 @@ const update = () => {
 <template>
     <AppLayout title="Клиенты">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
@@ -51,7 +51,7 @@ const update = () => {
                         </template>
                         <template #content>
                             <div class="space-y-8">
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.name : ''" >
                                             <InputText v-model.trim="form.name" v-bind:disabled="form.processing" autofocus :class="{'p-invalid': form.hasErrors && form.errors.name}"/>

@@ -86,15 +86,15 @@ const destroy = () => {
             </h2>
         </template>
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
-                                        <Button label="Редактировать" icon="pi pi-pencil" class="mr-2" @click="openForm"/>
-                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
+                                    <div class="space-x-2 flex">
+                                        <Button label="Редактировать" icon="pi pi-pencil" @click="openForm"/>
+                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash"/>
                                         <ConfirmDialog></ConfirmDialog>
                                     </div>
                                 </template>
@@ -143,18 +143,18 @@ const destroy = () => {
                                             </th>
                                         </tr>
                                         <tr class="border-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Наименование
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 {{brand.name}}
                                             </td>
                                         </tr>
                                         <tr class="border-b">
-                                            <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                            <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                 Страна
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td class="px-6 py-3">
                                                 <a class="text-blue-600" :href="route('crm.countries.show', [brand.country.id])" v-text="brand.country.name" />
                                             </td>
                                         </tr>

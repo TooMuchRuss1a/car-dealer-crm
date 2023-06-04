@@ -68,14 +68,14 @@ watch([filter.value], () =>
 <template>
     <AppLayout title="Каталог">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #content>
                             <div class="card mb-5 bg-gray-50 border-gray-200 border rounded p-4">
                                 <div class="space-y-2">
                                     <SearchField class="w-full"/>
-                                    <div class="card flex flex-column md:flex-row gap-3">
+                                    <div class="card flex flex-column md:flex-row gap-3 sm:mt-2 mt-3">
                                         <div class="p-inputgroup flex-1">
                                             <Dropdown :disabled="loading" v-model="filter.brand" :options="brands" filter optionLabel="name" placeholder="Марка" @change="filter.model = null; filter.generation = null">
                                                 <template #value="slotProps">

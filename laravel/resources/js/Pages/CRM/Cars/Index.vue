@@ -81,14 +81,14 @@ watch([filter.value], () =>
 <template>
     <AppLayout title="Авто">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #content>
                             <div class="card mb-5 bg-gray-50 border-gray-200 border rounded p-4">
                                 <div class="space-y-2">
                                     <SearchField class="w-full"/>
-                                    <div class="card flex flex-column md:flex-row gap-3">
+                                    <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                         <div class="p-inputgroup flex-1">
                                             <Dropdown :disabled="loading" v-model="filter.brand" :options="brands" filter optionLabel="name" placeholder="Марка" @change="filter.model = null; filter.generation = null">
                                                 <template #value="slotProps">
@@ -135,7 +135,7 @@ watch([filter.value], () =>
                                             <Button v-if="filter.generation" icon="pi pi-times" severity="danger" @click="filter.generation = null"/>
                                         </div>
                                     </div>
-                                    <div class="card flex flex-column md:flex-row gap-3">
+                                    <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                         <div class="p-inputgroup flex-1">
                                             <Calendar v-model="filter.yearFrom" :disabled="loading" :maxDate="filter.yearTo" view="year" dateFormat="yy" placeholder="Год от"/>
                                             <Button v-if="filter.yearFrom" icon="pi pi-times" severity="danger" @click="filter.yearFrom = null"/>
@@ -164,27 +164,27 @@ watch([filter.value], () =>
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>
-                                    <Column field="id" header="ID" sortable style="width: 10%">
+                                    <Column field="id" header="ID" sortable>
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.cars.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
-                                    <Column field="equipment" header="Комплектация" sortable style="width: 40%">
+                                    <Column field="equipment" header="Комплектация">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.supply.equipment.id])" v-text="slotProps.data.supply.equipment.name + ' | ' + slotProps.data.supply.equipment.generation.model.name + ' | ' + slotProps.data.supply.equipment.generation.model.brand.name" />
                                         </template>
                                     </Column>
-                                    <Column field="price" header="Цена" sortable style="width: 20%">
+                                    <Column field="price" header="Цена" sortable>
                                         <template #body="slotProps">
                                             {{slotProps.data.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(slotProps.data.price) : ''}}
                                         </template>
                                     </Column>
-                                    <Column field="release_date" header="Год выпуска" sortable style="width: 20%">
+                                    <Column field="release_date" header="Год выпуска" sortable>
                                         <template #body="slotProps">
                                             {{slotProps.data.release_date ? moment(slotProps.data.release_date).format("YYYY") : ''}}
                                         </template>
                                     </Column>
-                                    <Column field="status" header="Статус" sortable style="width: 5%">
+                                    <Column field="status" header="Статус">
                                         <template #body="slotProps">
                                             <i v-if="slotProps.data.status === 'WAITING'" style="color: dodgerblue;" class="pi pi-clock" v-tooltip="'Ожидание завершения поставки'"></i>
                                             <i v-else-if="slotProps.data.status === 'PRESENT'" style="color: dodgerblue;" class="pi pi-eye-slash" v-tooltip="'В наличии: не отображается в каталоге'"></i>

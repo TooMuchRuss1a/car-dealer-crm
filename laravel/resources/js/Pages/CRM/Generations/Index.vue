@@ -18,16 +18,16 @@ const props = defineProps({
 <template>
     <AppLayout title="Поколения">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="space-x-2">
+                                    <div class="space-x-2 flex">
                                         <SearchField/>
                                         <Link :href="route('crm.generations.create')">
-                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                            <Button label="Создать" icon="pi pi-plus"/>
                                         </Link>
                                         <Toast />
                                     </div>
@@ -40,22 +40,22 @@ const props = defineProps({
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>
-                                    <Column field="id" header="ID" sortable style="width: 10%">
+                                    <Column field="id" header="ID" sortable>
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.generations.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
-                                    <Column field="name" header="Наименование" sortable style="width: 20%">
+                                    <Column field="name" header="Наименование">
                                         <template #body="slotProps">
                                             {{slotProps.data.number}} поколение{{slotProps.data.restyling ? ', рестайлинг' : ''}} {{moment(slotProps.data.from).format('YYYY')}}-{{slotProps.data.to ? moment(slotProps.data.to).format('YYYY') : 'н.в.'}}
                                         </template>
                                     </Column>
-                                    <Column field="model" header="Модель" sortable style="width: 10%">
+                                    <Column field="model" header="Модель">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.model.id])" v-text="slotProps.data.model.name" />
                                         </template>
                                     </Column>
-                                    <Column field="engine" header="Двигатель" sortable style="width: 10%">
+                                    <Column field="engine" header="Двигатель">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.engines.show', [slotProps.data.engine.id])" v-text="slotProps.data.engine.name" />
                                         </template>

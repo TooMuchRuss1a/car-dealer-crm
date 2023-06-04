@@ -58,16 +58,16 @@ watch([filter.value], () =>
 <template>
     <AppLayout title="Заказы">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="space-x-2">
+                                    <div class="space-x-2 flex">
                                         <SearchField/>
                                         <Link :href="route('crm.orders.create')">
-                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                            <Button label="Создать" icon="pi pi-plus"/>
                                         </Link>
                                         <Toast />
                                     </div>
@@ -86,18 +86,23 @@ watch([filter.value], () =>
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>
-                                    <Column field="id" header="ID" sortable style="width: 5%">
+                                    <Column field="id" header="ID" sortable>
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.orders.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
-                                    <Column field="car" header="Авто" sortable style="width: 40%">
+                                    <Column field="customer" header="Клиент">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.customers.show', [slotProps.data.customer_id])" v-text="slotProps.data.customer.name" />
+                                        </template>
+                                    </Column>
+                                    <Column field="car" header="Авто">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.cars.show', [slotProps.data.car.id])" v-text="slotProps.data.car.supply.equipment.name + ' | ' + slotProps.data.car.supply.equipment.generation.model.name + ' | '  + slotProps.data.car.supply.equipment.generation.model.brand.name" />
                                         </template>
                                     </Column>
-                                    <Column field="user.name" header="Сотрудник" sortable style="width: 35%"></Column>
-                                    <Column field="status" header="Статус" sortable style="width: 5%">
+                                    <Column field="user.name" header="Сотрудник"></Column>
+                                    <Column field="status" header="Статус">
                                         <template #body="slotProps">
                                             <div class="space-x-1">
                                                 <i v-if="slotProps.data.contract_signed_at === null" style="color: dodgerblue;" class="pi pi-file" v-tooltip="'Необходимо подписать договор'"></i>

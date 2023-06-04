@@ -63,7 +63,7 @@ const update = () => {
 <template>
     <AppLayout title="Авто">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
@@ -72,7 +72,7 @@ const update = () => {
                         </template>
                         <template #content>
                             <div class="space-y-8">
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.price : ''">
                                             <InputNumber :max="9999999999.99" mode="currency" currency="RUB" locale="ru-RU" id="price" v-model.trim="form.price" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.price}"/>
@@ -98,7 +98,7 @@ const update = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.vin : ''" >
                                             <InputText v-model.trim="form.vin" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.vin}"/>
@@ -124,7 +124,7 @@ const update = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.pts_series : ''" >
                                             <InputText v-model.trim="form.pts_series" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.pts_series}"/>
@@ -150,7 +150,7 @@ const update = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.sts_series : ''" >
                                             <InputText v-model.trim="form.sts_series" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.sts_series}"/>
@@ -176,7 +176,7 @@ const update = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="card flex flex-column md:flex-row gap-3">
+                                <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div v-if="!['WAITING', 'SOLD'].includes(props.car.status)" class="flex">
                                         <SelectButton v-bind:disabled="form.processing" v-model="form.status" :options="statusesOptions" optionLabel="name" aria-labelledby="basic" />
                                     </div>

@@ -48,17 +48,17 @@ const destroy = () => {
 <template>
     <AppLayout title="Комплектации">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="card flex flex-wrap gap-3  justify-content-center">
+                                    <div class="space-x-2 flex">
                                         <Link :href="route('crm.equipments.edit', [equipment.id])">
-                                            <Button label="Редактировать" icon="pi pi-pencil" class="mr-2"/>
+                                            <Button label="Редактировать" icon="pi pi-pencil"/>
                                         </Link>
-                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash" class="mr-2"/>
+                                        <Button @click="confirmDelete()" label="Удалить" severity="danger" icon="pi pi-trash"/>
                                         <ConfirmDialog></ConfirmDialog>
                                         <Toast />
                                     </div>
@@ -76,90 +76,90 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Наименование
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.name}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Тип
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{types[equipment.type]}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Кузов
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{bodies[equipment.body]}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Количество дверей
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.doors_count}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Количество сидений
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.seats_count}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Длина
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.length}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Ширина
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.width}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Высота
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.height}}
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Максимальная скорость
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.max_speed}} км/ч
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Время разгона до 100км/ч
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.acceleration_time}} с
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Наименование шин
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.tires_name}}
                                                 </td>
                                             </tr>
@@ -169,26 +169,26 @@ const destroy = () => {
                                                 </th>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Расход топлива при скорости 90 км/ч
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.fuel_consumption_90}} л/100км
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Расход топлива при скорости 120 км/ч
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.fuel_consumption_120}} л/100км
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
-                                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Расход топлива при городском цикле
                                                 </th>
-                                                <td class="px-6 py-4">
+                                                <td class="px-6 py-3">
                                                     {{equipment.fuel_consumption_city}} л/100км
                                                 </td>
                                             </tr>

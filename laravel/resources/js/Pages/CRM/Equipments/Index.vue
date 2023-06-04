@@ -19,16 +19,16 @@ const props = defineProps({
 <template>
     <AppLayout title="Комплектации">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
                         <template #title>
                             <Toolbar class="mb-4">
                                 <template #start>
-                                    <div class="space-x-2">
+                                    <div class="space-x-2 flex">
                                         <SearchField/>
                                         <Link :href="route('crm.equipments.create')">
-                                            <Button label="Создать" icon="pi pi-plus" class="mr-2"/>
+                                            <Button label="Создать" icon="pi pi-plus"/>
                                         </Link>
                                         <Toast />
                                     </div>
@@ -41,23 +41,23 @@ const props = defineProps({
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>
-                                    <Column field="id" header="ID" sortable style="width: 10%">
+                                    <Column field="id" header="ID" sortable>
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.id])" v-text="slotProps.data.id" />
                                         </template>
                                     </Column>
-                                    <Column field="name" header="Наименование" sortable style="width: 20%"></Column>
-                                    <Column field="body" header="Кузов" sortable style="width: 10%">
+                                    <Column field="name" header="Наименование"></Column>
+                                    <Column field="body" header="Кузов">
                                         <template #body="slotProps">
                                             {{bodies[slotProps.data.body]}}
                                         </template>
                                     </Column>
-                                    <Column field="model" header="Модель" sortable style="width: 10%">
+                                    <Column field="model" header="Модель">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.generation.model.id])" v-text="slotProps.data.generation.model.name" />
                                         </template>
                                     </Column>
-                                    <Column field="brand" header="Марка" sortable style="width: 10%">
+                                    <Column field="brand" header="Марка">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.generation.model.brand.id])" v-text="slotProps.data.generation.model.brand.name" />
                                         </template>
