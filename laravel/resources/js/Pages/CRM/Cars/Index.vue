@@ -4,13 +4,58 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Card from 'primevue/card';
 import moment from "moment";
-import Toolbar from 'primevue/toolbar';
 import SearchField from "../../../Components/SearchField.vue";
+import Dropdown from 'primevue/dropdown';
+import {ref, watch} from "vue";
+import {debounce} from "lodash";
+import {router} from "@inertiajs/vue3";
+import Calendar from 'primevue/calendar';
+import InputNumber from 'primevue/inputnumber';
+import Button from 'primevue/button';
 
 const props = defineProps({
     cars: Object,
-    statuses: Object,
+    brands: Object,
+    models: Object,
+    generations: Object,
 });
+
+const loading = ref(false);
+const filter = ref({
+    brand: null,
+    model: null,
+    generaton: null,
+    yearFrom: null,
+    yearTo: null,
+    priceFrom: null,
+    priceTo: null,
+});
+
+const initSearch = debounce(() => {
+    loading.value = true;
+    router.get(
+        route(route().current()),
+        {
+            brand: filter.value.brand?.id,
+            model: filter.value.model?.id,
+            generation: filter.value.generation?.id,
+            yearFrom: filter.value.yearFrom ? moment(filter.value.yearFrom).format("YYYY-MM-DD") : null,
+            yearTo: filter.value.yearTo ? moment(filter.value.yearTo).format("YYYY-MM-DD") : null,
+            priceFrom: filter.value.priceFrom,
+            priceTo: filter.value.priceTo,
+        },
+        {
+            preserveState: true,
+            onSuccess: params => {
+                loading.value = false;
+            }
+        },
+    );
+}, 500)
+
+watch([filter.value], () =>
+    initSearch()
+)
 </script>
 
 <template>
@@ -19,16 +64,77 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
-                        <template #title>
-                            <Toolbar class="mb-4">
-                                <template #start>
-                                    <div class="space-x-2">
-                                        <SearchField/>
-                                    </div>
-                                </template>
-                            </Toolbar>
-                        </template>
                         <template #content>
+                            <div class="card mb-5 bg-gray-50 border-gray-200 border rounded p-4">
+                                <div class="space-y-2">
+                                    <SearchField class="w-full"/>
+                                    <div class="card flex flex-column md:flex-row gap-3">
+                                        <div class="p-inputgroup flex-1">
+                                            <Dropdown :disabled="loading" v-model="filter.brand" :options="brands" filter optionLabel="name" placeholder="Марка" @change="filter.model = null; filter.generation = null">
+                                                <template #value="slotProps">
+                                                    <div v-if="slotProps.value" class="flex align-items-center">
+                                                        <div>{{ slotProps.value.name }}</div>
+                                                    </div>
+                                                </template>
+                                                <template #option="slotProps">
+                                                    <div class="flex align-items-center">
+                                                        <div>{{ slotProps.option.name }}</div>
+                                                    </div>
+                                                </template>
+                                            </Dropdown>
+                                            <Button v-if="filter.brand" icon="pi pi-times" severity="danger" @click="filter.brand = null; filter.model = null; filter.generation = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <Dropdown :disabled="!filter.brand || models.length === 0 || loading" v-model="filter.model" :options="models" filter optionLabel="name" placeholder="Модель" @change="filter.generation = null">
+                                                <template #value="slotProps">
+                                                    <div v-if="slotProps.value" class="flex align-items-center">
+                                                        <div>{{ slotProps.value.name }}</div>
+                                                    </div>
+                                                </template>
+                                                <template #option="slotProps">
+                                                    <div class="flex align-items-center">
+                                                        <div>{{ slotProps.option.name }}</div>
+                                                    </div>
+                                                </template>
+                                            </Dropdown>
+                                            <Button v-if="filter.model" icon="pi pi-times" severity="danger" @click="filter.model = null; filter.generation = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <Dropdown :disabled="!filter.model || generations.length === 0 || loading" v-model="filter.generation" :options="generations" filter optionLabel="name" placeholder="Поколение">
+                                                <template #value="slotProps">
+                                                    <div v-if="slotProps.value" class="flex align-items-center">
+                                                        <div>{{slotProps.value.number}} поколение{{slotProps.value.restyling ? ', рестайлинг' : ''}} {{moment(slotProps.value.from).format('YYYY')}}-{{slotProps.value.to ? moment(slotProps.value.to).format('YYYY') : 'н.в.'}}</div>
+                                                    </div>
+                                                </template>
+                                                <template #option="slotProps">
+                                                    <div class="flex align-items-center">
+                                                        <div>{{slotProps.option.number}} поколение{{slotProps.option.restyling ? ', рестайлинг' : ''}} {{moment(slotProps.option.from).format('YYYY')}}-{{slotProps.option.to ? moment(slotProps.option.to).format('YYYY') : 'н.в.'}}</div>
+                                                    </div>
+                                                </template>
+                                            </Dropdown>
+                                            <Button v-if="filter.generation" icon="pi pi-times" severity="danger" @click="filter.generation = null"/>
+                                        </div>
+                                    </div>
+                                    <div class="card flex flex-column md:flex-row gap-3">
+                                        <div class="p-inputgroup flex-1">
+                                            <Calendar v-model="filter.yearFrom" :disabled="loading" :maxDate="filter.yearTo" view="year" dateFormat="yy" placeholder="Год от"/>
+                                            <Button v-if="filter.yearFrom" icon="pi pi-times" severity="danger" @click="filter.yearFrom = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <Calendar v-model="filter.yearTo" :disabled="loading" :minDate="filter.yearFrom" view="year" dateFormat="yy" placeholder="до"/>
+                                            <Button v-if="filter.yearTo" icon="pi pi-times" severity="danger" @click="filter.yearTo = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <InputNumber v-model="filter.priceFrom" :disabled="loading" :max="9999999999.99" mode="currency" currency="RUB" locale="ru-RU" placeholder="Цена от"/>
+                                            <Button v-if="filter.priceFrom" icon="pi pi-times" severity="danger" @click="filter.priceFrom = null"/>
+                                        </div>
+                                        <div class="p-inputgroup flex-1">
+                                            <InputNumber v-model="filter.priceTo" :disabled="loading" :max="9999999999.99" mode="currency" currency="RUB" locale="ru-RU" placeholder="до"/>
+                                            <Button v-if="filter.priceTo" icon="pi pi-times" severity="danger" @click="filter.priceTo = null"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card">
                                 <DataTable :value="cars" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                     <template #empty>
@@ -42,6 +148,11 @@ const props = defineProps({
                                     <Column field="equipment" header="Комплектация" sortable style="width: 40%">
                                         <template #body="slotProps">
                                             <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.supply.equipment.id])" v-text="slotProps.data.supply.equipment.name + ' | ' + slotProps.data.supply.equipment.generation.model.name + ' | ' + slotProps.data.supply.equipment.generation.model.brand.name" />
+                                        </template>
+                                    </Column>
+                                    <Column field="price" header="Цена" sortable style="width: 20%">
+                                        <template #body="slotProps">
+                                            {{slotProps.data.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(slotProps.data.price) : ''}}
                                         </template>
                                     </Column>
                                     <Column field="release_date" header="Год выпуска" sortable style="width: 20%">

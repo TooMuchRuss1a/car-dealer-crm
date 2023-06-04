@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\CarStatus;
 use App\Http\Requests\CarRequest;
+use App\Models\Brand;
 use App\Models\Car;
+use App\Models\Generation;
+use App\Models\Model;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,12 +25,15 @@ class CarController extends Controller
             'supply.equipment.generation.model' => ['name'],
             'supply.equipment.generation.model.brand' => ['name'],
         ])
+            ->filter($request->all())
             ->with('supply.equipment.generation.model.brand')
             ->orderByDesc('id')
             ->get();
-        $statuses = CarStatus::array();
+        $brands = Brand::orderBy('name')->get();
+        $models = Model::where('brand_id', '=', $request->brand)->orderBy('name')->get();
+        $generations = Generation::where('model_id', '=', $request->model)->orderBy('number')->get();
 
-        return Inertia::render('CRM/Cars/Index', compact('cars', 'statuses'));
+        return Inertia::render('CRM/Cars/Index', compact('cars', 'brands', 'models', 'generations'));
     }
 
     /**
