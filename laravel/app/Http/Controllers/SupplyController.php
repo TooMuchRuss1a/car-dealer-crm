@@ -107,7 +107,11 @@ class SupplyController extends Controller
      */
     public function destroy(string $id)
     {
-        $supply = Supply::findOrFail($id);
+        $supply = Supply::with('car.photos')->findOrFail($id);
+        $supply->car->photos->each(function ($photo) {
+            $photo->delete();
+        });
+        $supply->car->delete();
         $supply->delete();
 
         return redirect()->route('crm.supplies.index');
