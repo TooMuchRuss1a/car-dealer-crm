@@ -20,20 +20,20 @@ const props = defineProps({
             <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Card>
-                        <template #title>
-                            <Toolbar class="mb-4">
-                                <template #start>
-                                    <div class="space-x-2 flex">
+                        <template #content>
+                            <div class="card mb-5 bg-gray-50 border-gray-200 border rounded p-4">
+                                <div class="flex sm:flex-row flex-col justify-between space-y-2 sm:space-y-0">
+                                    <div class="sm:space-x-2 flex sm:flex-row flex-col space-y-2 sm:space-y-0">
                                         <SearchField/>
                                         <Link :href="route('crm.customers.create')">
                                             <Button label="Создать" icon="pi pi-plus"/>
                                         </Link>
-                                        <Toast />
+                                        <a :href="route('crm.customers.download')">
+                                            <Button label="Скачать клиентов" icon="pi pi-file-excel"/>
+                                        </a>
                                     </div>
-                                </template>
-                            </Toolbar>
-                        </template>
-                        <template #content>
+                                </div>
+                            </div>
                             <div class="card">
                                 <DataTable :value="customers" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                     <template #empty>

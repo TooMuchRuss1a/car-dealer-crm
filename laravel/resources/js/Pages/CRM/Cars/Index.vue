@@ -86,9 +86,9 @@ watch([filter.value], () =>
                     <Card>
                         <template #content>
                             <div class="card mb-5 bg-gray-50 border-gray-200 border rounded p-4">
-                                <div class="space-y-2">
+                                <div class="space-y-3">
                                     <SearchField class="w-full"/>
-                                    <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
+                                    <div class="card flex flex-column md:flex-row gap-3">
                                         <div class="p-inputgroup flex-1">
                                             <Dropdown :disabled="loading" v-model="filter.brand" :options="brands" filter optionLabel="name" placeholder="Марка" @change="filter.model = null; filter.generation = null">
                                                 <template #value="slotProps">
@@ -135,7 +135,7 @@ watch([filter.value], () =>
                                             <Button v-if="filter.generation" icon="pi pi-times" severity="danger" @click="filter.generation = null"/>
                                         </div>
                                     </div>
-                                    <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
+                                    <div class="card flex flex-column md:flex-row gap-3">
                                         <div class="p-inputgroup flex-1">
                                             <Calendar v-model="filter.yearFrom" :disabled="loading" :maxDate="filter.yearTo" view="year" dateFormat="yy" placeholder="Год от"/>
                                             <Button v-if="filter.yearFrom" icon="pi pi-times" severity="danger" @click="filter.yearFrom = null"/>
@@ -157,6 +157,9 @@ watch([filter.value], () =>
                                             <Button v-if="filter.status" icon="pi pi-times" severity="danger" @click="filter.status = null"/>
                                         </div>
                                     </div>
+                                    <a :href="route('crm.cars.download.selling')">
+                                        <Button label="Скачать номенклатуру" icon="pi pi-file-excel" class="mt-2"/>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card">

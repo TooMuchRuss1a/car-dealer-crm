@@ -101,6 +101,7 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}', [CarController::class, 'show'])->name('crm.cars.show');
         Route::get('/{id}/edit', [CarController::class, 'edit'])->name('crm.cars.edit');
         Route::put('/{id}', [CarController::class, 'update'])->name('crm.cars.update');
+        Route::get('/download/report', [CarController::class, 'downloadSellingCarsReport'])->name('crm.cars.download');
     });
 
     Route::prefix('/photos')->group(function () {
@@ -134,6 +135,7 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('crm.customers.edit');
         Route::put('/{id}', [CustomerController::class, 'update'])->name('crm.customers.update');
         Route::delete('/{id}', [CustomerController::class, 'destroy'])->name('crm.customers.destroy');
+        Route::get('/download/report', [CustomerController::class, 'downloadCustomersReport'])->name('crm.customers.download');
     });
 
     Route::prefix('/orders')->group(function () {
@@ -145,6 +147,8 @@ Route::prefix('/crm')->middleware(['auth:sanctum', config('jetstream.auth_sessio
         Route::put('/{id}', [OrderController::class, 'update'])->name('crm.orders.update');
         Route::get('/{id}/download/contract', [OrderController::class, 'downloadContract'])->name('crm.orders.download.contract');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('crm.orders.destroy');
+        Route::get('/download/report', [OrderController::class, 'downloadOrdersReport'])->name('crm.orders.download');
+        Route::get('/download/analysis', [OrderController::class, 'downloadAnalysisOrdersReport'])->name('crm.orders.download.analysis');
     });
 
     Route::prefix('/requests')->group(function () {

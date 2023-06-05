@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomersExport;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -77,5 +79,9 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route('crm.customers.index');
+    }
+
+    public function downloadCustomersReport() {
+        return Excel::download(new CustomersExport(), 'Клиенты.xlsx');
     }
 }

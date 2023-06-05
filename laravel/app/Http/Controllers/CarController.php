@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CarStatus;
+use App\Exports\SellingCarsExport;
 use App\Http\Requests\CarRequest;
 use App\Models\Brand;
 use App\Models\Car;
@@ -10,6 +11,7 @@ use App\Models\Generation;
 use App\Models\Model;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CarController extends Controller
 {
@@ -68,5 +70,9 @@ class CarController extends Controller
         $car->update($request->validated());
 
         return redirect()->route('crm.cars.show', ['id' => $car->id]);
+    }
+
+    public function downloadSellingCarsReport() {
+        return Excel::download(new SellingCarsExport, 'Номенклатура.xlsx');
     }
 }

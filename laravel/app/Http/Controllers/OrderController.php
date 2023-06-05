@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AnalysisOrdersExport;
+use App\Exports\OrdersExport;
 use App\Http\Requests\OrderRequest;
 use App\Models\Car;
 use App\Models\Customer;
@@ -9,6 +11,7 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class OrderController extends Controller
@@ -150,5 +153,16 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->route('crm.orders.index');
+    }
+
+    public function downloadOrdersReport() {
+        return Excel::download(new OrdersExport, 'Заказы.xlsx');
+    }
+
+    public function downloadAnalysisOrdersReport(Request $request) {
+        $from = Carbon::parse($request->from);
+        $to = Carbon::parse($request->to);
+
+        return Excel::download(new AnalysisOrdersExport($from, $to), 'Анализ продаж.xlsx');
     }
 }

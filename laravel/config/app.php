@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
         EloquentFilter\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
