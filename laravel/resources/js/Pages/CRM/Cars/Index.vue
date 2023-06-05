@@ -157,7 +157,7 @@ watch([filter.value], () =>
                                             <Button v-if="filter.status" icon="pi pi-times" severity="danger" @click="filter.status = null"/>
                                         </div>
                                     </div>
-                                    <a :href="route('crm.cars.download.selling')">
+                                    <a :href="route('crm.cars.download')">
                                         <Button label="Скачать номенклатуру" icon="pi pi-file-excel" class="mt-2"/>
                                     </a>
                                 </div>
