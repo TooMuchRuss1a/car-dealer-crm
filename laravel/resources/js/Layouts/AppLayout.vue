@@ -217,6 +217,11 @@ const logout = () => {
                         </ResponsiveNavLink>
                     </div>
                     <div v-if="$page.props.auth.user" class="space-y-1">
+                        <ResponsiveNavLink :href="route('crm.cars.index')" :active="route().current('crm.cars.index')">
+                            Авто
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user" class="space-y-1">
                         <ResponsiveNavLink :href="route('crm.engines.index')" :active="route().current('crm.engines.index')">
                             Двигатели
                         </ResponsiveNavLink>
