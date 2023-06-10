@@ -99,7 +99,7 @@ const destroy = () => {
                                     </div>
                                 </template>
                             </Toolbar>
-                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Редактирование марки" :modal="true" class="p-fluid">
+                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Редактирование модели" :modal="true" class="p-fluid">
                                 <div class="space-y-2">
                                     <div class="field">
                                         <label for="name">Наименование</label>

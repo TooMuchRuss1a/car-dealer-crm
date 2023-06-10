@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
 </script>
 
 <template>
@@ -13,8 +12,8 @@ import Welcome from '@/Components/Welcome.vue';
 
         <div class="py-12">
             <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    Добро пожаловать, {{ $page.props.auth.user.name }}
                 </div>
             </div>
         </div>

@@ -73,7 +73,7 @@ const hideDialog = () => {
                                     </div>
                                 </template>
                             </Toolbar>
-                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать марку" :modal="true" class="p-fluid">
+                            <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Создать модель" :modal="true" class="p-fluid">
                                 <div class="space-y-2">
                                     <div class="field">
                                         <label for="name">Наименование</label>
