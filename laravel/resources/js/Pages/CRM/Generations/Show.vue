@@ -80,14 +80,6 @@ const destroy = () => {
                                                     <a class="text-blue-600" :href="route('crm.models.show', [generation.model.id])" v-text="generation.model.name" />
                                                 </td>
                                             </tr>
-                                            <tr class="border-b">
-                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
-                                                    Двигатель
-                                                </th>
-                                                <td class="px-6 py-3">
-                                                    <a class="text-blue-600" :href="route('crm.engines.show', [generation.engine.id])" v-text="generation.engine.name" />
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

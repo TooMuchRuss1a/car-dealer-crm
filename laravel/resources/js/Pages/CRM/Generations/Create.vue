@@ -14,7 +14,6 @@ import Calendar from 'primevue/calendar';
 
 const props = defineProps({
     models: Object,
-    engines: Object,
 });
 
 const toast = useToast();
@@ -25,14 +24,12 @@ const form = useForm({
     number: null,
     restyling: null,
     model_id: null,
-    engine_id: null,
 });
 
 const store = () => {
     form.transform((data) => ({
         ...data,
         model_id: data.model_id ? data.model_id.id : null,
-        engine_id: data.engine_id ? data.engine_id.id : null,
         from: data.from ? moment(data.from).format("YYYY-MM-DD") : null,
         to: data.to ? moment(data.to).format("YYYY-MM-DD") : null,
         restyling: data.restyling ? !!data.restyling[0] : false,
@@ -91,23 +88,6 @@ const store = () => {
                                     </span>
                                 </div>
                                 <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
-                                    <div class="p-inputgroup">
-                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.engine_id : ''">
-                                            <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.engine_id}" v-model="form.engine_id" :options="engines" filter optionLabel="name">
-                                                <template #value="slotProps">
-                                                    <div v-if="slotProps.value" class="flex align-items-center">
-                                                        <div>{{ slotProps.value.name }}</div>
-                                                    </div>
-                                                </template>
-                                                <template #option="slotProps">
-                                                    <div class="flex align-items-center">
-                                                        <div>{{ slotProps.option.name }}</div>
-                                                    </div>
-                                                </template>
-                                            </Dropdown>
-                                            <label>Двигатель</label>
-                                        </span>
-                                    </div>
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.from : ''">
                                             <Calendar v-model="form.from" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.from}" view="year" dateFormat="yy" />

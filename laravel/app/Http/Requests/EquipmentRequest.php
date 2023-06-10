@@ -39,6 +39,7 @@ class EquipmentRequest extends FormRequest
             'body' => 'required|in:'.implode(',', Body::names()),
             'tires_name' => 'required|max:20',
             'generation_id' => 'required|integer|exists:generations,id',
+            'engine_id' => 'required|integer|exists:engines,id',
         ];
     }
 }

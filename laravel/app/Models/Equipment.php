@@ -32,7 +32,8 @@ class Equipment extends EModel
         'fuel_consumption_city',
         'body',
         'tires_name',
-        'generation_id'
+        'generation_id',
+        'engine_id'
     ];
 
     /**
@@ -50,5 +51,10 @@ class Equipment extends EModel
     public function supplies()
     {
         return $this->hasMany('App\Models\Supply');
+    }
+
+    public function engine()
+    {
+        return $this->belongsTo('App\Models\Engine');
     }
 }

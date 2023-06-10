@@ -97,7 +97,7 @@ class OrderController extends Controller
 
     public function downloadContract(string $id)
     {
-        $order = Order::with('user', 'car.supply.equipment.generation.model.brand', 'car.supply.equipment.generation.engine', 'customer')->findOrFail($id);
+        $order = Order::with('user', 'car.supply.equipment.generation.model.brand', 'car.supply.equipment.engine', 'customer')->findOrFail($id);
 
         $templateProcessor = new TemplateProcessor(storage_path('app/templates/').'dkp.docx');
         $templateProcessor->setValues([

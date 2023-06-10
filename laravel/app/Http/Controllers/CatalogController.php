@@ -25,7 +25,7 @@ class CatalogController extends Controller
             'supply.equipment.generation.model.brand' => ['name']
         ])
             ->filter($request->all())
-            ->with('photos', 'supply.equipment.generation.model.brand', 'supply.equipment.generation.engine')
+            ->with('photos', 'supply.equipment.generation.model.brand', 'supply.equipment.engine')
             ->where('status', '=', 'SELLING')
             ->orderByDesc('id')
             ->get();
@@ -41,7 +41,7 @@ class CatalogController extends Controller
      */
     public function show(string $id)
     {
-        $car = Car::with('photos', 'supply.equipment.generation.model.brand', 'supply.equipment.generation.engine')->where('status', '=', 'SELLING')->findOrFail($id);
+        $car = Car::with('photos', 'supply.equipment.generation.model.brand', 'supply.equipment.engine')->where('status', '=', 'SELLING')->findOrFail($id);
         $fuels = Fuel::array();
         $bodies = Body::array();
 

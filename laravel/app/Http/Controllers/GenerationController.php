@@ -21,7 +21,7 @@ class GenerationController extends Controller
             'model' => ['name'],
             'model.brand' => ['name'],
         ])
-            ->with('model', 'engine')
+            ->with('model')
             ->orderByDesc('id')
             ->get();
 
@@ -33,10 +33,9 @@ class GenerationController extends Controller
      */
     public function create()
     {
-        $engines = Engine::orderBy('name')->get();
         $models = Model::orderBy('name')->get();
 
-        return Inertia::render('CRM/Generations/Create', compact('engines', 'models'));
+        return Inertia::render('CRM/Generations/Create', compact('models'));
     }
 
     /**
@@ -54,7 +53,7 @@ class GenerationController extends Controller
      */
     public function show(string $id)
     {
-        $generation = Generation::with('model', 'engine')->findOrFail($id);
+        $generation = Generation::with('model')->findOrFail($id);
 
         return Inertia::render('CRM/Generations/Show', compact('generation'));
     }
@@ -64,11 +63,10 @@ class GenerationController extends Controller
      */
     public function edit(string $id)
     {
-        $generation = Generation::with('model', 'engine')->findOrFail($id);
-        $engines = Engine::orderBy('name')->get();
+        $generation = Generation::with('model')->findOrFail($id);
         $models = Model::orderBy('name')->get();
 
-        return Inertia::render('CRM/Generations/Edit', compact('generation', 'engines', 'models'));
+        return Inertia::render('CRM/Generations/Edit', compact('generation', 'models'));
     }
 
     /**

@@ -17,6 +17,7 @@ const props = defineProps({
     generations: Object,
     types: Object,
     bodies: Object,
+    engines: Object,
 });
 
 const toast = useToast();
@@ -39,6 +40,7 @@ const form = useForm({
     body: null,
     tires_name: null,
     generation_id: null,
+    engine_id: null,
 });
 
 onMounted(() => {
@@ -58,6 +60,7 @@ const store = () => {
     form.transform((data) => ({
         ...data,
         generation_id: data.generation_id ? data.generation_id.id : null,
+        engine_id: data.engine_id ? data.engine_id.id : null,
     }))
         .post(route('crm.equipments.store'), {
         onSuccess: () => {
@@ -95,7 +98,7 @@ const store = () => {
                                             <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.generation_id}" v-model="form.generation_id" :options="generations" filter :filterFields="['number', 'from', 'to', 'model.name', 'model.brand.name']">
                                                 <template #value="slotProps">
                                                     <div v-if="slotProps.value" class="flex align-items-center">
-                                                        <div>{{slotProps.value.number}} поколение{{slotProps.value.restyling ? ', рестайлинг' : ''}} {{moment(slotProps.value.from).format('YYYY')}}-{{slotProps.value.to ? moment(slotProps.value.to).format('YYYY') : 'н.в.'}} | {{slotProps.value.model.name}} | {{slotProps.value.model.brand.name}}</div>
+                                                        <div>{{slotProps.value.number}} поколение{{slotProps.value.restyling ? ', рестайлинг' : ''}} {{moment(slotProps.value.from).format('YYYY')}}-{{slotProps.value.to ? moment(slotProps.value.to).format('YYYY') : 'н.в.'}}</div>
                                                     </div>
                                                 </template>
                                                 <template #option="slotProps">
@@ -117,6 +120,23 @@ const store = () => {
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.body : ''">
                                             <Dropdown id="type" v-model="form.body" :options="dropdownBodies" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.body}" optionLabel="option" optionValue="value" class="w-full md:w-14rem" />
                                             <label>Кузов</label>
+                                        </span>
+                                    </div>
+                                    <div class="p-inputgroup">
+                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.engine_id : ''">
+                                            <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.engine_id}" v-model="form.engine_id" :options="engines" filter optionLabel="name">
+                                                <template #value="slotProps">
+                                                    <div v-if="slotProps.value" class="flex align-items-center">
+                                                        <div>{{ slotProps.value.name }}</div>
+                                                    </div>
+                                                </template>
+                                                <template #option="slotProps">
+                                                    <div class="flex align-items-center">
+                                                        <div>{{ slotProps.option.name }}</div>
+                                                    </div>
+                                                </template>
+                                            </Dropdown>
+                                            <label>Двигатель</label>
                                         </span>
                                     </div>
                                 </div>

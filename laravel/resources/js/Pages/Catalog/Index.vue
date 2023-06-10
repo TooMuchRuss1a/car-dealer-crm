@@ -156,12 +156,12 @@ watch([filter.value], () =>
                                                         <div class="md:text-2xl text-xl font-bold text-900">
                                                             <div>{{slotProps.data.supply.equipment.generation.model.brand.name}} {{slotProps.data.supply.equipment.generation.model.name}} {{slotProps.data.release_date ? moment(slotProps.data.release_date).format("YYYY") : ''}}</div>
                                                             <div class="font-semibold text-sm text-gray-600">{{slotProps.data.supply.equipment.name }}</div>
-                                                            <div class="flex md:hidden text-sm font-semibold">{{slotProps.data.supply.equipment.generation.engine.max_power}} л.с. {{slotProps.data.supply.equipment.max_speed}} км/ч {{slotProps.data.mileage}} км</div>
+                                                            <div class="flex md:hidden text-sm font-semibold">{{slotProps.data.supply.equipment.engine.max_power}} л.с. {{slotProps.data.supply.equipment.max_speed}} км/ч {{slotProps.data.mileage}} км</div>
                                                         </div>
                                                         <div class="flex align-items-center gap-3">
                                                             <span class="flex align-items-center gap-2">
                                                                 <span class="md:flex flex-col gap-2 hidden">
-                                                                    <span class="font-semibold">Мощность: {{slotProps.data.supply.equipment.generation.engine.max_power}} л.с.</span>
+                                                                    <span class="font-semibold">Мощность: {{slotProps.data.supply.equipment.engine.max_power}} л.с.</span>
                                                                     <span class="font-semibold">Макс. скорость: {{slotProps.data.supply.equipment.max_speed}} км/ч</span>
                                                                     <span class="font-semibold">Пробег: {{slotProps.data.mileage}} км</span>
                                                                 </span>

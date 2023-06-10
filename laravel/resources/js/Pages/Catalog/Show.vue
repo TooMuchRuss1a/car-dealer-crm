@@ -208,7 +208,7 @@ const store = () => {
                                                             Наименование
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{car.supply.equipment.generation.engine.name}}
+                                                            {{car.supply.equipment.engine.name}}
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">
@@ -216,7 +216,7 @@ const store = () => {
                                                             Используемый вид топлива
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{fuels[car.supply.equipment.generation.engine.fuel]}}
+                                                            {{fuels[car.supply.equipment.engine.fuel]}}
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">
@@ -224,7 +224,7 @@ const store = () => {
                                                             Количество цилиндров
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{car.supply.equipment.generation.engine.cylinders_count}}
+                                                            {{car.supply.equipment.engine.cylinders_count}}
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">
@@ -232,7 +232,7 @@ const store = () => {
                                                             Рабочий объем двигателя
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{car.supply.equipment.generation.engine.capacity}} см3
+                                                            {{car.supply.equipment.engine.capacity}} см3
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">
@@ -240,7 +240,7 @@ const store = () => {
                                                             Максимальная мощность двигателя
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{car.supply.equipment.generation.engine.max_power}} л.с.
+                                                            {{car.supply.equipment.engine.max_power}} л.с.
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">
@@ -248,7 +248,7 @@ const store = () => {
                                                             Максимальный крутящий момент
                                                         </th>
                                                         <td class="md:px-6 px-0 py-3">
-                                                            {{car.supply.equipment.generation.engine.max_torque}} Нм
+                                                            {{car.supply.equipment.engine.max_torque}} Нм
                                                         </td>
                                                     </tr>
                                                     <tr class="border-b">

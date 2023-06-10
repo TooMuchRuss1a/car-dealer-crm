@@ -27,7 +27,6 @@ class GenerationRequest extends FormRequest
             'number' => 'required|integer',
             'restyling' => 'nullable|boolean',
             'model_id' => 'required|integer|exists:models,id',
-            'engine_id' => 'required|integer|exists:engines,id',
         ];
     }
 }

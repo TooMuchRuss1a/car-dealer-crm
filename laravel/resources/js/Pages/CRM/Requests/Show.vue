@@ -11,7 +11,7 @@ import Toast from 'primevue/toast';
 
 const props = defineProps({
     carRequest: Object,
-    statuses: Array,
+    statuses: Object,
 });
 
 const toast = useToast();

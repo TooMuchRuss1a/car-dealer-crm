@@ -85,6 +85,14 @@ const destroy = () => {
                                             </tr>
                                             <tr class="border-b">
                                                 <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
+                                                    Двигатель
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <a class="text-blue-600" :href="route('crm.engines.show', [equipment.engine.id])" v-text="equipment.engine.name" />
+                                                </td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
                                                     Тип
                                                 </th>
                                                 <td class="px-6 py-3">

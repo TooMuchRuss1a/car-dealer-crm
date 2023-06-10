@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Body;
 use App\Enums\Type;
 use App\Http\Requests\EquipmentRequest;
+use App\Models\Engine;
 use App\Models\Equipment;
 use App\Models\Generation;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class EquipmentController extends Controller
             'generation.model' => ['name'],
             'generation.model.brand' => ['name'],
         ])
-            ->with('generation.model.brand')
+            ->with('generation.model.brand', 'engine')
             ->orderByDesc('id')
             ->get();
         $types = Type::array();
@@ -38,10 +39,11 @@ class EquipmentController extends Controller
     public function create()
     {
         $generations = Generation::with('model.brand')->get();
+        $engines = Engine::orderBy('name')->get();
         $types = Type::array();
         $bodies = Body::array();
 
-        return Inertia::render('CRM/Equipments/Create', compact('generations', 'types', 'bodies'));
+        return Inertia::render('CRM/Equipments/Create', compact('generations', 'engines', 'types', 'bodies'));
     }
 
     /**
@@ -59,7 +61,7 @@ class EquipmentController extends Controller
      */
     public function show(string $id)
     {
-        $equipment = Equipment::with('generation.model.brand')->findOrFail($id);
+        $equipment = Equipment::with('generation.model.brand', 'engine')->findOrFail($id);
         $types = Type::array();
         $bodies = Body::array();
 
@@ -71,12 +73,13 @@ class EquipmentController extends Controller
      */
     public function edit(string $id)
     {
-        $equipment = Equipment::with('generation.model.brand')->findOrFail($id);
+        $equipment = Equipment::with('generation.model.brand', 'engine')->findOrFail($id);
         $generations = Generation::with('model.brand')->get();
+        $engines = Engine::orderBy('name')->get();
         $types = Type::array();
         $bodies = Body::array();
 
-        return Inertia::render('CRM/Equipments/Edit', compact('equipment', 'generations', 'types', 'bodies'));
+        return Inertia::render('CRM/Equipments/Edit', compact('equipment', 'generations', 'engines', 'types', 'bodies'));
     }
 
     /**

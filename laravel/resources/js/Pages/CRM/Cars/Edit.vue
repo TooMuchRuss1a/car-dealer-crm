@@ -145,7 +145,7 @@ const update = () => {
                                     </div>
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.pts_issued_at : ''">
-                                            <Calendar v-model="form.pts_issued_at" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.pts_issued_at}" dateFormat="mm.dd.yy" />
+                                            <Calendar v-model="form.pts_issued_at" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.pts_issued_at}" dateFormat="dd.mm.yy" />
                                             <label>Дата выдачи ПТС</label>
                                         </span>
                                     </div>
@@ -171,7 +171,7 @@ const update = () => {
                                     </div>
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.sts_issued_at : ''">
-                                            <Calendar v-model="form.sts_issued_at" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.sts_issued_at}" dateFormat="mm.dd.yy" />
+                                            <Calendar v-model="form.sts_issued_at" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.sts_issued_at}" dateFormat="dd.mm.yy" />
                                             <label>Дата выдачи СТС</label>
                                         </span>
                                     </div>

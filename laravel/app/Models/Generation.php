@@ -23,7 +23,6 @@ class Generation extends Model
         'number',
         'restyling',
         'model_id',
-        'engine_id',
     ];
 
     protected $dates = [
@@ -34,10 +33,5 @@ class Generation extends Model
     public function model()
     {
         return $this->belongsTo('App\Models\Model');
-    }
-
-    public function engine()
-    {
-        return $this->belongsTo('App\Models\Engine');
     }
 }

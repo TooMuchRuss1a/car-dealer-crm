@@ -15,6 +15,7 @@ import moment from "moment/moment";
 const props = defineProps({
     equipment: Object,
     generations: Object,
+    engines: Object,
     types: Object,
     bodies: Object,
 });
@@ -39,6 +40,7 @@ const form = useForm({
     body: props.equipment.body,
     generation_id: props.equipment.generation,
     tires_name: props.equipment.tires_name,
+    engine_id: props.equipment.engine
 });
 
 onMounted(() => {
@@ -58,6 +60,7 @@ const update = () => {
     form.transform((data) => ({
         ...data,
         generation_id: data.generation_id ? data.generation_id.id : null,
+        engine_id: data.engine_id ? data.engine_id.id : null,
     }))
         .put(route('crm.equipments.update', [props.equipment.id]), {
         onSuccess: () => {
@@ -116,6 +119,23 @@ const update = () => {
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.body : ''">
                                             <Dropdown id="type" v-model="form.body" :options="dropdownBodies" v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.body}" optionLabel="option" optionValue="value" class="w-full md:w-14rem" />
                                             <label>Кузов</label>
+                                        </span>
+                                    </div>
+                                    <div class="p-inputgroup">
+                                        <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.engine_id : ''">
+                                            <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.engine_id}" v-model="form.engine_id" :options="engines" filter optionLabel="name">
+                                                <template #value="slotProps">
+                                                    <div v-if="slotProps.value" class="flex align-items-center">
+                                                        <div>{{ slotProps.value.name }}</div>
+                                                    </div>
+                                                </template>
+                                                <template #option="slotProps">
+                                                    <div class="flex align-items-center">
+                                                        <div>{{ slotProps.option.name }}</div>
+                                                    </div>
+                                                </template>
+                                            </Dropdown>
+                                            <label>Двигатель</label>
                                         </span>
                                     </div>
                                 </div>

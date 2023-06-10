@@ -11,7 +11,7 @@ class SellingCarsExport extends Export
 {
     public function query()
     {
-        return Car::with('supply.equipment.generation.model.brand', 'supply.equipment.generation.engine')->where('status', '=', 'SELLING');
+        return Car::with('supply.equipment.generation.model.brand', 'supply.equipment.engine')->where('status', '=', 'SELLING');
     }
 
     public function headings(): array

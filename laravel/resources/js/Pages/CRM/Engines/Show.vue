@@ -12,9 +12,9 @@ import Toast from 'primevue/toast';
 
 const props = defineProps({
     engine: Object,
-    bodies: Array,
-    fuels: Array,
-    types: Array,
+    bodies: Object,
+    fuels: Object,
+    types: Object,
 });
 
 const submitted = ref(false);

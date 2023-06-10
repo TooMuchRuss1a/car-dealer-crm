@@ -55,11 +55,6 @@ const props = defineProps({
                                             <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.model.id])" v-text="slotProps.data.model.name" />
                                         </template>
                                     </Column>
-                                    <Column field="engine" header="Двигатель">
-                                        <template #body="slotProps">
-                                            <a class="text-blue-600" :href="route('crm.engines.show', [slotProps.data.engine.id])" v-text="slotProps.data.engine.name" />
-                                        </template>
-                                    </Column>
                                 </DataTable>
                             </div>
                         </template>
