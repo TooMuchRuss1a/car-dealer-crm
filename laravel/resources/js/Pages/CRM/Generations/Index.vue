@@ -36,7 +36,7 @@ const props = defineProps({
                         </template>
                         <template #content>
                             <div class="card">
-                                <DataTable :value="generations" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                <DataTable paginator :rows="15" :value="generations" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>

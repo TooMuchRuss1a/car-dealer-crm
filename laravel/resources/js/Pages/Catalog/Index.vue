@@ -143,7 +143,7 @@ watch([filter.value], () =>
                                 </div>
                             </div>
                             <div class="card">
-                                <DataView :value="cars">
+                                <DataView :value="cars" paginator :rows="20">
                                     <template #empty>
                                         <div class="text-base text-center">По вашему запросу ничего не нашлось</div>
                                     </template>

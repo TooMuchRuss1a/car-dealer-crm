@@ -87,7 +87,7 @@ const hideDialog = () => {
 
                         <template #content>
                                 <div class="card">
-                                    <DataTable :value="countries" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
+                                    <DataTable paginator :rows="15" :value="countries" removableSort sortMode="multiple" tableStyle="min-width: 50rem">
                                         <Column field="id" header="ID" sortable>
                                             <template #body="slotProps">
                                                 <a class="text-blue-600" :href="route('crm.countries.show', [slotProps.data.id])" v-text="slotProps.data.id" />
