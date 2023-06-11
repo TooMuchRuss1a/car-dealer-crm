@@ -68,7 +68,7 @@ class SupplyController extends Controller
      */
     public function show(string $id)
     {
-        $supply = Supply::with('equipment', 'supplier', 'user')->findOrFail($id);
+        $supply = Supply::with('equipment', 'supplier', 'user', 'car')->findOrFail($id);
 
         return Inertia::render('CRM/Supplies/Show', compact('supply'));
     }

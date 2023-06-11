@@ -55,6 +55,11 @@ const props = defineProps({
                                             <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.model.id])" v-text="slotProps.data.model.name" />
                                         </template>
                                     </Column>
+                                    <Column field="brand" header="Марка">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.model.brand.id])" v-text="slotProps.data.model.brand.name" />
+                                        </template>
+                                    </Column>
                                 </DataTable>
                             </div>
                         </template>

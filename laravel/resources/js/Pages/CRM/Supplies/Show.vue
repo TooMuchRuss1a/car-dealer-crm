@@ -116,6 +116,14 @@ const destroy = () => {
                                                     {{supply.supplied_at}}
                                                 </td>
                                             </tr>
+                                            <tr class="border-b">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
+                                                    Авто
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <a class="text-blue-600" :href="route('crm.cars.show', [supply.car.id])" v-text="supply.car.id" />
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

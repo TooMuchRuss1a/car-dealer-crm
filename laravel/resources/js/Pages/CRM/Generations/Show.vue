@@ -77,7 +77,7 @@ const destroy = () => {
                                                     Модель
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <a class="text-blue-600" :href="route('crm.models.show', [generation.model.id])" v-text="generation.model.name" />
+                                                    <a class="text-blue-600" :href="route('crm.models.show', [generation.model.id])" v-text="generation.model.name + ' | ' + generation.model.brand.name" />
                                                 </td>
                                             </tr>
                                         </tbody>

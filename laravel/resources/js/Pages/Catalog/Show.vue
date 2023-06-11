@@ -108,7 +108,7 @@ const store = () => {
                                     </div>
                                     <div class="sm:col-8">
                                         <div class="m-1 md:mt-0 space-y-2 items-center">
-                                            <div class="text-2xl font-semibold">{{car.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(car.price) : ''}}</div>
+                                            <div class="text-2xl font-semibold">{{car.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0, minimumFractionDigits: 0}).format(car.price) : ''}}</div>
                                             <Button label="Хочу купить" icon="pi pi-shopping-cart" class="mr-2 h-10" @click="openForm"/>
                                         </div>
                                         <Dialog v-model:visible="formDialog" :style="{width: '450px'}" header="Отправить заявку" :modal="true" class="p-fluid">

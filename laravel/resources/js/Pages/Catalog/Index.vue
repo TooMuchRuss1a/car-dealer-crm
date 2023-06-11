@@ -169,7 +169,7 @@ watch([filter.value], () =>
                                                         </div>
                                                     </div>
                                                     <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                                        <span class="text-2xl font-semibold">{{slotProps.data.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(slotProps.data.price) : ''}}</span>
+                                                        <span class="text-2xl font-semibold">{{slotProps.data.price ? new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0, minimumFractionDigits: 0, }).format(slotProps.data.price) : ''}}</span>
                                                     </div>
                                                 </div>
                                             </div>

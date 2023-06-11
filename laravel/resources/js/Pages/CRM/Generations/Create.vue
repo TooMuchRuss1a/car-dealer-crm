@@ -61,7 +61,7 @@ const store = () => {
                                 <div class="card flex flex-column md:flex-row sm:gap-3 gap-5">
                                     <div class="p-inputgroup">
                                         <span class="p-float-label" v-tooltip="form.hasErrors ? form.errors.model_id : ''">
-                                            <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.model_id}" v-model="form.model_id" :options="models" filter optionLabel="name">
+                                            <Dropdown v-bind:disabled="form.processing" :class="{'p-invalid': form.hasErrors && form.errors.model_id}" v-model="form.model_id" :options="models" filter optionLabel="name" :filterFields="['name', 'brand.name']" :virtualScrollerOptions="{ itemSize: 50 }">
                                                 <template #value="slotProps">
                                                     <div v-if="slotProps.value" class="flex align-items-center">
                                                         <div>{{ slotProps.value.name }}</div>
@@ -69,7 +69,7 @@ const store = () => {
                                                 </template>
                                                 <template #option="slotProps">
                                                     <div class="flex align-items-center">
-                                                        <div>{{ slotProps.option.name }}</div>
+                                                        <div>{{ slotProps.option.name + ' | ' + slotProps.option.brand.name }}</div>
                                                     </div>
                                                 </template>
                                             </Dropdown>

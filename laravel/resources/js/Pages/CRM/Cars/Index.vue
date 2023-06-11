@@ -174,7 +174,17 @@ watch([filter.value], () =>
                                     </Column>
                                     <Column field="equipment" header="Комплектация">
                                         <template #body="slotProps">
-                                            <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.supply.equipment.id])" v-text="slotProps.data.supply.equipment.name + ' | ' + slotProps.data.supply.equipment.generation.model.name + ' | ' + slotProps.data.supply.equipment.generation.model.brand.name" />
+                                            <a class="text-blue-600" :href="route('crm.equipments.show', [slotProps.data.supply.equipment.id])" v-text="slotProps.data.supply.equipment.name" />
+                                        </template>
+                                    </Column>
+                                    <Column field="equipment" header="Модель">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.models.show', [slotProps.data.supply.equipment.generation.model.id])" v-text="slotProps.data.supply.equipment.generation.model.name" />
+                                        </template>
+                                    </Column>
+                                    <Column field="equipment" header="Марка">
+                                        <template #body="slotProps">
+                                            <a class="text-blue-600" :href="route('crm.brands.show', [slotProps.data.supply.equipment.generation.model.brand.id])" v-text="slotProps.data.supply.equipment.generation.model.brand.name" />
                                         </template>
                                     </Column>
                                     <Column field="price" header="Цена" sortable>
