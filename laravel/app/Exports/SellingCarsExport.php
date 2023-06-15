@@ -57,7 +57,7 @@ class SellingCarsExport extends Export
             number_format($car->price, 2, ',', ' ') . '₽',
             $car->color,
             $car->mileage ? $car->mileage . ' км' : '',
-            $car->relase_date ? Carbon::parse($car->relase_date)->year : '',
+            $car->release_date ? Carbon::parse($car->release_date)->year : '',
             Body::array()[$car->supply->equipment->body],
             $car->supply->equipment->doors_count,
             $car->supply->equipment->seats_count,
@@ -67,12 +67,12 @@ class SellingCarsExport extends Export
             $car->supply->equipment->fuel_consumption_90 . ' л/100км',
             $car->supply->equipment->fuel_consumption_120 . ' л/100км',
             $car->supply->equipment->fuel_consumption_city . ' л/100км',
-            $car->supply->equipment->generation->engine->name,
-            $car->supply->equipment->generation->engine->capacity . ' см3',
-            $car->supply->equipment->generation->engine->cylinders_count,
-            $car->supply->equipment->generation->engine->max_power . ' л.с.',
-            $car->supply->equipment->generation->engine->max_torque . ' Нм',
-            Fuel::array()[$car->supply->equipment->generation->engine->fuel],
+            $car->supply->equipment->engine->name,
+            $car->supply->equipment->engine->capacity . ' см3',
+            $car->supply->equipment->engine->cylinders_count,
+            $car->supply->equipment->engine->max_power . ' л.с.',
+            $car->supply->equipment->engine->max_torque . ' Нм',
+            Fuel::array()[$car->supply->equipment->engine->fuel],
         ];
     }
 }
