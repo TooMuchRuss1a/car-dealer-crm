@@ -153,7 +153,12 @@ const destroy = () => {
                                                     Комплектация
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <a class="text-blue-600" :href="route('crm.equipments.show', [car.supply.equipment.id])" v-text="car.supply.equipment.name + ' | ' + car.supply.equipment.generation.model.name + ' | ' + car.supply.equipment.generation.model.brand.name" />
+                                                    <a class="text-blue-600"
+                                                       :href="route('crm.equipments.show', [car.supply.equipment.id])"
+                                                       v-text="car.supply.equipment.name + ' | ' +
+                                                       car.supply.equipment.generation.number + ' поколение ' + (car.supply.equipment.generation.restyling ? ', рестайлинг' : '') + moment(car.supply.equipment.generation.from).format('YYYY') + '-' + (car.supply.equipment.generation.to ? moment(car.supply.equipment.generation.to).format('YYYY') : 'н.в.') +  ' | ' +
+                                                       car.supply.equipment.generation.model.name + ' | ' +
+                                                       car.supply.equipment.generation.model.brand.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">

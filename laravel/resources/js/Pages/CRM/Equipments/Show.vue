@@ -9,6 +9,7 @@ import {useConfirm} from "primevue/useconfirm";
 import {useToast} from "primevue/usetoast";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from 'primevue/toast';
+import moment from "moment/moment";
 
 const props = defineProps({
     equipment: Object,
@@ -81,6 +82,18 @@ const destroy = () => {
                                                 </th>
                                                 <td class="px-6 py-3">
                                                     {{equipment.name}}
+                                                </td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <th scope="row" class="px-6 py-3 font-bold text-gray-900 whitespace-nowrap">
+                                                    Поколение
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <a class="text-blue-600"
+                                                       :href="route('crm.generations.show', [equipment.generation.id])"
+                                                       v-text="equipment.generation.number + ' поколение ' + (equipment.generation.restyling ? ', рестайлинг' : '') + moment(equipment.generation.from).format('YYYY') + '-' + (equipment.generation.to ? moment(equipment.generation.to).format('YYYY') : 'н.в.') + ' | ' +
+                                                       equipment.generation.model.name + ' | ' +
+                                                       equipment.generation.model.brand.name" />
                                                 </td>
                                             </tr>
                                             <tr class="border-b">
