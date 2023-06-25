@@ -112,7 +112,7 @@ class OrderController extends Controller
             'brand' => $order->car->supply->equipment->generation->model->brand->name,
             'model' => $order->car->supply->equipment->generation->model->name,
             'type' => $order->car->supply->equipment->type,
-            'release_date' => Carbon::parse($order->car->release_date)->format('YYYY'),
+            'release_date' => Carbon::parse($order->car->release_date)->format('Y'),
             'chassis_number' => $order->car->chassis_number,
             'body_number' => $order->car->body_number,
             'color' => $order->car->color,
